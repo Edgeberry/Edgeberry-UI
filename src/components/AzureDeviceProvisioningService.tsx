@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Alert, Button, Col, Form, Row } from "react-bootstrap";
 import { api_connectivity_azure_getProvisioningParameters, api_connectivity_azure_updateProvisioningParameters } from "../api/connectivity";
 
 const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAuthenticationType?:Function, disabled?:boolean } )=>{
@@ -63,6 +63,11 @@ const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAu
                     <Button variant={'danger'} disabled={disabled}>Reprovision</Button>
                 </div>
                 <h3>Azure Device Provisioning Service</h3>
+                <Alert>
+                    The Device Provisioning Service is a managed service to allow devices to be provisioned and configured in 
+                    a secure and standardized manner to ensure that devices can securely connect to Azure IoT Hub for further 
+                    management and communication.
+                </Alert>
                 <Form.Group as={Row} className="mb-2">
                     <Form.Label column sm={2}>Hostname</Form.Label>
                     <Col sm={6}>

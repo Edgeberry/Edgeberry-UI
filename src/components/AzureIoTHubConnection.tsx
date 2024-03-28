@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Alert, Button, Col, Form, Row } from "react-bootstrap";
 import { api_connectivity_azure_getConnectionParameters, api_connectivity_azure_updateConnectionParameters } from "../api/connectivity";
 
 const AzureIoTHubConnection = ( props:{authenticationType:string, setAuthenticationType?:Function, disabled?:boolean } )=>{
@@ -60,6 +60,11 @@ const AzureIoTHubConnection = ( props:{authenticationType:string, setAuthenticat
                     <Button variant={'danger'} disabled={disabled}>Reconnect</Button>
                 </div>
                 <h3>Azure IoT Hub Connection</h3>
+                <Alert>
+                    IoT Hub connection properties are essential parameters required for devices
+                    to securely connect to Azure IoT Hub. The IoT Hub connection enables this device 
+                    to send telemetry data, receive commands, and interact with the IoT Hub services.
+                </Alert>
                 <Form.Group as={Row} className="mb-2">
                     <Form.Label column sm={2}>Hostname</Form.Label>
                     <Col sm={6}>
