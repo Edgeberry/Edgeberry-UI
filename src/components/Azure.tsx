@@ -28,7 +28,7 @@ const Azure = ()=>{
                     </Col>
                 </Form.Group>
                 <hr/>
-                <AzureIoTHubConnection authenticationType={authenticationType} disabled={useProvisioning}/>
+                <AzureIoTHubConnection authenticationType={authenticationType} setAuthenticationType={setAuthenticationType} disabled={useProvisioning}/>
                 <hr/>
                 <AzureDeviceProvisioningService authenticationType={authenticationType} disabled={!useProvisioning}/>
             </Form>
