@@ -4,6 +4,9 @@ const AzureDeviceProvisioningService = ()=>{
     return(
         <>
             <Form>
+                <div className="float-right">
+                    <Button variant={'danger'}>Reprovision</Button>
+                </div>
                 <h3>Azure Device Provisioning Service</h3>
                 <Form.Group as={Row} className="mb-2">
                     <Form.Label column sm={2}>Hostname</Form.Label>

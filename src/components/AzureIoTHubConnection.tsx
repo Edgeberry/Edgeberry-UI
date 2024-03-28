@@ -4,6 +4,9 @@ const AzureIoTHubConnection = ()=>{
     return(
         <>
             <Form>
+                <div className="float-right">
+                    <Button variant={'danger'}>Reconnect</Button>
+                </div>
                 <h3>Azure IoT Hub Connection</h3>
                 <Form.Group as={Row} className="mb-2">
                     <Form.Label column sm={2}>Hostname</Form.Label>
@@ -14,7 +17,7 @@ const AzureIoTHubConnection = ()=>{
                 <Form.Group as={Row} className="mb-2">
                     <Form.Label column sm={2}>Device ID</Form.Label>
                     <Col sm={6}>
-                        <Form.Control type={'text'} placeholder={'Device Id'} required />
+                        <Form.Control type={'text'} placeholder={'Device ID'} required />
                     </Col>
                 </Form.Group>
                 {/* Conditionally: Shared Access Key */}
