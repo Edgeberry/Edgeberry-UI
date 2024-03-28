@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { api_connectivity_azure_getProvisioningParameters } from "../api/connectivity";
+import { api_connectivity_azure_getProvisioningParameters, api_connectivity_azure_updateProvisioningParameters } from "../api/connectivity";
 
 const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAuthenticationType?:Function, disabled?:boolean } )=>{
     const[ disabled, setDisabled ] = useState<boolean>(false);
@@ -40,6 +40,20 @@ const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAu
         if( typeof(props.setAuthenticationType) === 'function' && typeof(result.authenticationType) === 'string')
         props.setAuthenticationType( result. authenticationType );
     }
+
+    async function updateProvisioningParameters(){
+        const parameters = {
+            hostName: hostname,
+            idScope: idScope,
+            registrationId: regId,
+            authenticationType: props.authenticationType,
+            registrationKey: regKey,
+            certificate: cert,
+            privateKey: pkey,
+        }
+        const result = await api_connectivity_azure_updateProvisioningParameters( parameters );
+        console.log( result);
+    }
     
     return(
         <>
@@ -66,12 +80,12 @@ const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAu
                         <Form.Control type={'text'} placeholder={'Registration ID'} value={regId} onChange={(e)=>{setRegId(e.target.value)}} required disabled={disabled}/>
                     </Col>
                 </Form.Group>
-                {/* Conditionally: Shared Access Key */}
+                {/* Conditionally: Symmetric Key */}
                 {props.authenticationType === 'sas'?
                     <Form.Group as={Row} className="mb-2">
-                        <Form.Label column sm={2}>Shared Access Key</Form.Label>
+                        <Form.Label column sm={2}>Registration Key</Form.Label>
                         <Col sm={6}>
-                            <Form.Control type={'text'} placeholder={'Shared Access Key'} value={regKey} onChange={(e)=>{setRegKey(e.target.value)}} required disabled={disabled}/>
+                            <Form.Control type={'text'} placeholder={'Registration key'} value={regKey} onChange={(e)=>{setRegKey(e.target.value)}} required disabled={disabled}/>
                         </Col>
                     </Form.Group>
                 :<></>}
@@ -90,7 +104,7 @@ const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAu
                         </Col>
                     </Form.Group>
                 </>:<></>}
-                <Button variant={'primary'} disabled={disabled}>Save</Button>&nbsp;
+                <Button variant={'primary'} disabled={disabled} onClick={updateProvisioningParameters}>Save</Button>&nbsp;
                 <Button variant={'danger'} disabled={disabled}>Reset</Button>
             </Form>
         </>
