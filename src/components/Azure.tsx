@@ -12,7 +12,7 @@ const Azure = ()=>{
                         <Form.Control as="select">
                             <option value="sas" selected>Symmetric Key</option>
                             <option value="x509">X.509 Certificates</option>
-                            <option value="tpm">Trusted Platform Module</option>
+                            <option value="tpm" disabled>Trusted Platform Module</option>
                         </Form.Control>
                     </Col>
                 </Form.Group>
