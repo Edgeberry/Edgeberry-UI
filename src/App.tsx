@@ -1,9 +1,15 @@
 import React from 'react';
+import { BrowserRouter, Routes } from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
-      <h1>Edge Gateway UI</h1>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <h1>Edge Gateway UI</h1>
+
+        <Routes>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
