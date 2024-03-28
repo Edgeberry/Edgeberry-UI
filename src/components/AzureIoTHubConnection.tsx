@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
+import { api_connectivity_azure_getConnectionParameters } from "../api/connectivity";
 
 const AzureIoTHubConnection = ( props:{authenticationType:string, disabled?:boolean } )=>{
     const[ disabled, setDisabled ] = useState<boolean>(false);
@@ -7,6 +8,16 @@ const AzureIoTHubConnection = ( props:{authenticationType:string, disabled?:bool
     useEffect(()=>{
         if(typeof(props.disabled) !== 'undefined') setDisabled(props.disabled);
     },[props.disabled]);
+
+    useEffect(()=>{
+        getConnectionParameters();
+    },[]);
+
+    // Get Azure IoT Hub connection parameters
+    async function getConnectionParameters(){
+        const result = await api_connectivity_azure_getConnectionParameters();
+        console.log(result);
+    }
 
     return(
         <>
