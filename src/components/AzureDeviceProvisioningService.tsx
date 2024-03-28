@@ -34,12 +34,29 @@ const AzureDeviceProvisioningService = ( props:{authenticationType:string, disab
                     </Col>
                 </Form.Group>
                 {/* Conditionally: Shared Access Key */}
-                <Form.Group as={Row} className="mb-2">
-                    <Form.Label column sm={2}>Shared Access Key</Form.Label>
-                    <Col sm={6}>
-                        <Form.Control type={'text'} placeholder={'Shared Access Key'} required disabled={disabled}/>
-                    </Col>
-                </Form.Group>
+                {props.authenticationType === 'sas'?
+                    <Form.Group as={Row} className="mb-2">
+                        <Form.Label column sm={2}>Shared Access Key</Form.Label>
+                        <Col sm={6}>
+                            <Form.Control type={'text'} placeholder={'Shared Access Key'} required disabled={disabled}/>
+                        </Col>
+                    </Form.Group>
+                :<></>}
+                {/* Conditionally: X.509 Certificates */}
+                {props.authenticationType === 'x509'?<>
+                    <Form.Group as={Row} className="mb-2">
+                        <Form.Label column sm={2}>Certificate</Form.Label>
+                        <Col sm={6}>
+                            <Form.Control type={'text'} placeholder={'Certificate'} required disabled={disabled}/>
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-2">
+                        <Form.Label column sm={2}>Private Key</Form.Label>
+                        <Col sm={6}>
+                            <Form.Control type={'text'} placeholder={'Private Key'} required disabled={disabled}/>
+                        </Col>
+                    </Form.Group>
+                </>:<></>}
                 <Button variant={'primary'} disabled={disabled}>Save</Button>&nbsp;
                 <Button variant={'danger'} disabled={disabled}>Reset</Button>
             </Form>
