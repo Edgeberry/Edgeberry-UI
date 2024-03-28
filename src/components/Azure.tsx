@@ -30,7 +30,7 @@ const Azure = ()=>{
                 <hr/>
                 <AzureIoTHubConnection authenticationType={authenticationType} setAuthenticationType={setAuthenticationType} disabled={useProvisioning}/>
                 <hr/>
-                <AzureDeviceProvisioningService authenticationType={authenticationType} disabled={!useProvisioning}/>
+                <AzureDeviceProvisioningService authenticationType={authenticationType} setAuthenticationType={setAuthenticationType} disabled={!useProvisioning}/>
             </Form>
         </>
     );

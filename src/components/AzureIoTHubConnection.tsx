@@ -32,7 +32,7 @@ const AzureIoTHubConnection = ( props:{authenticationType:string, setAuthenticat
         if( typeof(result.hostName) === 'string' ) setHostname(result.hostName);
         if( typeof(result.deviceId) === 'string' ) setDeviceId(result.deviceId);
         if( typeof(result.sharedAccessKey) === 'string' ) setSharedKey(result.sharedAccessKey);
-        if( typeof(result.certificate) === 'string' ) setHostname(result.certificate);
+        if( typeof(result.certificate) === 'string' ) setCert(result.certificate);
         if( typeof(result.privateKey) === 'string' ) setPKey(result.privateKey);
         // Update the authenticationType
         if( typeof(props.setAuthenticationType) === 'function' && typeof(result.authenticationType) === 'string')
