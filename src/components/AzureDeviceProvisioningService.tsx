@@ -41,6 +41,7 @@ const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAu
         props.setAuthenticationType( result. authenticationType );
     }
 
+    // Update Azure provisioning parameters
     async function updateProvisioningParameters(){
         const parameters = {
             hostName: hostname,

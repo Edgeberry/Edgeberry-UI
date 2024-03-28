@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { api_connectivity_azure_getConnectionParameters } from "../api/connectivity";
+import { api_connectivity_azure_getConnectionParameters, api_connectivity_azure_updateConnectionParameters } from "../api/connectivity";
 
 const AzureIoTHubConnection = ( props:{authenticationType:string, setAuthenticationType?:Function, disabled?:boolean } )=>{
     const[ disabled, setDisabled ] = useState<boolean>(false);
@@ -37,6 +37,20 @@ const AzureIoTHubConnection = ( props:{authenticationType:string, setAuthenticat
         // Update the authenticationType
         if( typeof(props.setAuthenticationType) === 'function' && typeof(result.authenticationType) === 'string')
         props.setAuthenticationType( result. authenticationType );
+    }
+
+    // Update Azure connection parameters
+    async function updateConnectionParameters(){
+        const parameters = {
+            hostName: hostname,
+            deviceId: deviceId,
+            authenticationType: props.authenticationType,
+            sharedAccessKey: sharedKey,
+            certificate: cert,
+            privateKey: pKey,
+        }
+        const result = await api_connectivity_azure_updateConnectionParameters( parameters );
+        console.log( result);
     }
 
     return(
@@ -82,7 +96,7 @@ const AzureIoTHubConnection = ( props:{authenticationType:string, setAuthenticat
                         </Col>
                     </Form.Group>
                 </>:<></>}
-                <Button variant={'primary'} disabled={disabled}>Save</Button>&nbsp;
+                <Button variant={'primary'} disabled={disabled} onClick={updateConnectionParameters}>Save</Button>&nbsp;
                 <Button variant={'danger'} disabled={disabled}>Reset</Button>
             </Form>
         </>
