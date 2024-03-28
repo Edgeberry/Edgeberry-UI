@@ -11,6 +11,7 @@ function App() {
     <div className="App">
       <BrowserRouter basename={process.env.PUBLIC_URL}>
         <NavigationBar />
+        <br/>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/connectivity' element={<Connectivity />} />
