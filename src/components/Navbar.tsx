@@ -5,7 +5,10 @@ const NavigationBar = ()=>{
     return(
         <Navbar sticky="top" bg={'dark'} data-bs-theme={'dark'}>
             <Container>
-                <Navbar.Brand href='/'>Edge Gateway</Navbar.Brand>
+                <Navbar.Brand href='/'>
+                    <img src="logo_inverted.png" alt="Edge Gateway" height={'30px'}/>&nbsp;
+                    Edge Gateway
+                </Navbar.Brand>
                 <Nav className="me-auto">
                     <Nav.Link href='/application'>
                         Application
