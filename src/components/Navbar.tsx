@@ -1,13 +1,22 @@
-import { Container, Navbar } from "react-bootstrap";
+import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const NavigationBar = ()=>{
     return(
-        <Navbar sticky="top" className="navbar-dark bg-dark">
+        <Navbar sticky="top" bg={'dark'} data-bs-theme={'dark'}>
             <Container>
-                <Link className="navbar-brand navbar-dark bg-dark" to='/'>
-                    <div className="navbar-text navbar-dark">Edge Gateway</div>
-                </Link>
+                <Navbar.Brand href='/'>Edge Gateway</Navbar.Brand>
+                <Nav className="me-auto">
+                    <Nav.Link href='/application'>
+                        Application
+                    </Nav.Link>
+                    <Nav.Link href='/connectivity'>
+                        Connectivity
+                    </Nav.Link>
+                    <Nav.Link href='/system'>
+                        System
+                    </Nav.Link>
+                </Nav>
             </Container>
         </Navbar>
     );
