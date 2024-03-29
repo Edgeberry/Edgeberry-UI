@@ -12,8 +12,8 @@ export async function api_connectivity_azure_getConnectionParameters(){
     try{
         const content = await response.json()
         return content;
-    } catch(err){
-        return {message:err};
+    } catch(err:any){
+        return ({message:err.toString()});
     }
 }
 
@@ -52,8 +52,8 @@ export async function api_connectivity_azure_getProvisioningParameters(){
     try{
         const content = await response.json()
         return content;
-    } catch(err){
-        return {message:err};
+    } catch(err:any){
+        return ({message:err.toString()});
     }
 }
 

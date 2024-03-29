@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
 import { Alert, Button, Col, Form, Row } from "react-bootstrap";
 import { api_connectivity_azure_getProvisioningParameters, api_connectivity_azure_provision, api_connectivity_azure_updateProvisioningParameters } from "../api/connectivity";
+import NotificationBox from "./Notification";
 
 const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAuthenticationType?:Function, disabled?:boolean } )=>{
     const[ disabled, setDisabled ] = useState<boolean>(false);
+
+    // Error or success messages
+    const[ message, setMessage ] = useState<string>('');
+    const[ isError, setIsError ] = useState<boolean>(false);
 
     const[ hostname, setHostname ] = useState<string>('');
     const[ idScope, setIdScope ] = useState<string>('');
@@ -27,7 +32,8 @@ const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAu
         const result = await api_connectivity_azure_getProvisioningParameters();
         console.log(result);
         if( result.message ){
-
+            setIsError(true);
+            setMessage(result.message);
         }
         // Set the parameters in the fields
         if( typeof(result.hostName) === 'string' ) setHostname(result.hostName);
@@ -53,14 +59,18 @@ const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAu
             privateKey: pkey,
         }
         const result = await api_connectivity_azure_updateProvisioningParameters( parameters );
-        console.log( result);
+        if( result.message ){
+            setIsError(false);
+            setMessage(result.message);
+        }
     }
 
     // (Re)provision the device
     async function provision(){
         const result = await api_connectivity_azure_provision();
         if( result.message ){
-            window.alert(result.message)
+            setIsError(true);
+            setMessage(result.message);
         }
     }
     
@@ -118,6 +128,7 @@ const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAu
                         </Col>
                     </Form.Group>
                 </>:<></>}
+                <NotificationBox message={message} isError={isError} />
                 <Button variant={'primary'} disabled={disabled} onClick={updateProvisioningParameters}>Save</Button>&nbsp;
                 <Button variant={'danger'} disabled={disabled}>Reset</Button>
             </Form>

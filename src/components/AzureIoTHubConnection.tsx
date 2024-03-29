@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import { Alert, Button, Col, Form, Row } from "react-bootstrap";
 import { api_connectivity_azure_connect, api_connectivity_azure_getConnectionParameters, api_connectivity_azure_updateConnectionParameters } from "../api/connectivity";
+import NotificationBox from "./Notification";
 
 const AzureIoTHubConnection = ( props:{authenticationType:string, setAuthenticationType?:Function, disabled?:boolean } )=>{
     const[ disabled, setDisabled ] = useState<boolean>(false);
+    // Error or success messages
+    const[ message, setMessage ] = useState<string>('');
+    const[ isError, setIsError ] = useState<boolean>(false);
     // Azure IoT Hub connection parameters
     const[ hostname, setHostname ] = useState<string>('');
     const[ deviceId, setDeviceId ] = useState<string>('');
@@ -24,9 +28,9 @@ const AzureIoTHubConnection = ( props:{authenticationType:string, setAuthenticat
     // Get Azure IoT Hub connection parameters
     async function getConnectionParameters(){
         const result = await api_connectivity_azure_getConnectionParameters();
-        console.log(result);
         if( result.message ){
-
+            setIsError(true);
+            setMessage(result.message);
         }
         // Set the parameters in the fields
         if( typeof(result.hostName) === 'string' ) setHostname(result.hostName);
@@ -50,14 +54,16 @@ const AzureIoTHubConnection = ( props:{authenticationType:string, setAuthenticat
             privateKey: pKey,
         }
         const result = await api_connectivity_azure_updateConnectionParameters( parameters );
-        console.log( result);
+        setIsError(false);
+        setMessage(result.message);
     }
 
     // (Re)connect the device
     async function connect(){
         const result = await api_connectivity_azure_connect();
         if( result.message ){
-            window.alert(result.message)
+            setIsError(true);
+            //setMessage(result.message);
         }
     }
     
@@ -109,6 +115,7 @@ const AzureIoTHubConnection = ( props:{authenticationType:string, setAuthenticat
                         </Col>
                     </Form.Group>
                 </>:<></>}
+                <NotificationBox message={message} isError={isError} />
                 <Button variant={'primary'} disabled={disabled} onClick={updateConnectionParameters}>Save</Button>&nbsp;
                 <Button variant={'danger'} disabled={disabled}>Reset</Button>
             </Form>
