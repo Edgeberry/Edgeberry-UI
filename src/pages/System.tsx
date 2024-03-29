@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { api_system_getApplicationInfo, api_system_getNetworkSettings, api_system_reboot } from "../api/system";
+import { api_system_getApplicationInfo, api_system_getNetworkSettings, api_system_reboot, api_system_updateSystemSoftware } from "../api/system";
 
 const System = ()=>{
     // Network
@@ -50,6 +50,19 @@ const System = ()=>{
         return;
     }
 
+    // Request system restart
+    async function requestSystemSoftwareUpdate(){
+        // Check if user is sure about this action
+        if( !window.confirm("Update system software?") ) return;
+
+        const result = await api_system_updateSystemSoftware();
+        if( result.message ){
+            //Todo: handle error
+            return window.alert(result.message);
+        }
+        return;
+    }
+
     return(
         <Container>
             <div className="float-right">
@@ -83,7 +96,7 @@ const System = ()=>{
             <Form.Group as={Row} className="mb-2">
                 <Form.Label column sm={2}></Form.Label>
                 <Col sm={6}>
-                    <Button variant={'danger'}>Update</Button>
+                    <Button variant={'danger'} onClick={()=>{requestSystemSoftwareUpdate()}}>Update</Button>
                 </Col>
             </Form.Group>
         </Container>
