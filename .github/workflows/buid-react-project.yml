@@ -1,14 +1,4 @@
-
-To build your React project and download the build folder in a tarball from GitHub, you can use GitHub Actions to automate the build process and create a tarball artifact. Here's a step-by-step guide:
-
-Set up GitHub Actions: Create a workflow file (e.g., build.yml) in the .github/workflows directory of your GitHub repository. This file will define the build process using GitHub Actions.
-
-Define Workflow Steps: Define the steps for the workflow to build your React project and create a tarball artifact. Here's an example workflow:
-
-yaml
-Copy code
 name: Build and Package
-
 on:
   push:
     branches:
