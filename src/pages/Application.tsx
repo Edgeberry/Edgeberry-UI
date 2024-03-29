@@ -5,6 +5,7 @@ const Application = ()=>{
     const[ disabled, setDisabled ] = useState<boolean>(false);
     const[ repository, setRepository ] = useState<string>('');
     const[ accessToken, setAccessToken ] = useState<string>('');
+    const[ privateRepo, setPrivateRepo ] = useState<boolean>(false);
     const[ appName, setAppName ] = useState<string>('');
     const[ appVersion, setAppVersion ] = useState<string>('');
 
@@ -14,18 +15,27 @@ const Application = ()=>{
                 <Button variant={'danger'}>Restart</Button>
             </div>
             <h1>Application</h1>
+            <br/>
             <Form.Group as={Row} className="mb-2">
-                    <Form.Label column sm={2}>Repository</Form.Label>
+                    <Form.Label column sm={2}>Repository (tarball)</Form.Label>
                     <Col sm={6}>
                         <Form.Control type={'text'} placeholder={'Repository'} value={repository} onChange={(e)=>{setRepository(e.target.value)}} required disabled={disabled}/>
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} className="mb-2">
+                    <Form.Label column sm={2}>Private repository</Form.Label>
+                    <Col sm={6}>
+                        <Form.Check type={'switch'} checked={privateRepo} onChange={(e)=>{setPrivateRepo(e.target.checked)}}/>
+                    </Col>
+                </Form.Group>
+                {privateRepo?
+                <Form.Group as={Row} className="mb-2">
                     <Form.Label column sm={2}>Access Token</Form.Label>
                     <Col sm={6}>
                         <Form.Control type={'text'} placeholder={'Access Token'} value={accessToken} onChange={(e)=>{setAccessToken(e.target.value)}} required disabled={disabled}/>
                     </Col>
-                </Form.Group>
+                </Form.Group>:<></>}
+                <hr/>
                 <Form.Group as={Row} className="mb-2">
                     <Form.Label column sm={2}>Application name</Form.Label>
                     <Col sm={6}>
