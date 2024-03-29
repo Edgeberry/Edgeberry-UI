@@ -9,8 +9,12 @@ export async function api_connectivity_azure_getConnectionParameters(){
         headers: {'Content-Type': 'application/json'},
         credentials: 'include'
     });
-    const content = await response.json();
-    return content;
+    try{
+        const content = await response.json()
+        return content;
+    } catch(err){
+        return {message:err};
+    }
 }
 
 /* Update Azure IoT Hub connection parameters */
@@ -33,8 +37,12 @@ export async function api_connectivity_azure_getProvisioningParameters(){
         headers: {'Content-Type': 'application/json'},
         credentials: 'include'
     });
-    const content = await response.json();
-    return content;
+    try{
+        const content = await response.json()
+        return content;
+    } catch(err){
+        return {message:err};
+    }
 }
 
 /* Update Azure Device Provisioning Service for IoT Hub parameters */
