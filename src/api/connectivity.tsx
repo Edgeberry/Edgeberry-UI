@@ -30,6 +30,18 @@ export async function api_connectivity_azure_updateConnectionParameters( paramet
     return content;
 }
 
+/* (Re)connect to Azure IoT Hub */
+export async function api_connectivity_azure_connect(){
+    const response = await fetch( window.location.origin+'/api/connectivity/azure/connect',{
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        credentials: 'include',
+    });
+
+    const content = await response.json();
+    return content;
+}
+
 /* Get Azure Device Provisioning Service for IoT Hub parameters */
 export async function api_connectivity_azure_getProvisioningParameters(){
     const response = await fetch( window.location.origin+'/api/connectivity/azure/provisioningparameters',{
@@ -45,6 +57,8 @@ export async function api_connectivity_azure_getProvisioningParameters(){
     }
 }
 
+
+
 /* Update Azure Device Provisioning Service for IoT Hub parameters */
 export async function api_connectivity_azure_updateProvisioningParameters( parameters:any ){
     console.log(parameters);
@@ -55,6 +69,18 @@ export async function api_connectivity_azure_updateProvisioningParameters( param
         body: JSON.stringify( parameters )
     });
     
+    const content = await response.json();
+    return content;
+}
+
+/* (Re)provision from Azure Device Provisioning Service for IoT Hub */
+export async function api_connectivity_azure_provision(){
+    const response = await fetch( window.location.origin+'/api/connectivity/azure/provision',{
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        credentials: 'include',
+    });
+
     const content = await response.json();
     return content;
 }

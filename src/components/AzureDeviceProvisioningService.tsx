@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Alert, Button, Col, Form, Row } from "react-bootstrap";
-import { api_connectivity_azure_getProvisioningParameters, api_connectivity_azure_updateProvisioningParameters } from "../api/connectivity";
+import { api_connectivity_azure_getProvisioningParameters, api_connectivity_azure_provision, api_connectivity_azure_updateProvisioningParameters } from "../api/connectivity";
 
 const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAuthenticationType?:Function, disabled?:boolean } )=>{
     const[ disabled, setDisabled ] = useState<boolean>(false);
@@ -55,12 +55,20 @@ const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAu
         const result = await api_connectivity_azure_updateProvisioningParameters( parameters );
         console.log( result);
     }
+
+    // (Re)provision the device
+    async function provision(){
+        const result = await api_connectivity_azure_provision();
+        if( result.message ){
+            window.alert(result.message)
+        }
+    }
     
     return(
         <>
             <Form>
                 <div className="float-right">
-                    <Button variant={'danger'} disabled={disabled}>Reprovision</Button>
+                    <Button variant={'danger'} onClick={()=>{provision()}} disabled={disabled}>Reprovision</Button>
                 </div>
                 <h3>Azure Device Provisioning Service</h3>
                 <Alert>

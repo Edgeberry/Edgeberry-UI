@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Alert, Button, Col, Form, Row } from "react-bootstrap";
-import { api_connectivity_azure_getConnectionParameters, api_connectivity_azure_updateConnectionParameters } from "../api/connectivity";
+import { api_connectivity_azure_connect, api_connectivity_azure_getConnectionParameters, api_connectivity_azure_updateConnectionParameters } from "../api/connectivity";
 
 const AzureIoTHubConnection = ( props:{authenticationType:string, setAuthenticationType?:Function, disabled?:boolean } )=>{
     const[ disabled, setDisabled ] = useState<boolean>(false);
@@ -53,11 +53,19 @@ const AzureIoTHubConnection = ( props:{authenticationType:string, setAuthenticat
         console.log( result);
     }
 
+    // (Re)connect the device
+    async function connect(){
+        const result = await api_connectivity_azure_connect();
+        if( result.message ){
+            window.alert(result.message)
+        }
+    }
+    
     return(
         <>
             <Form>
                 <div className="float-right">
-                    <Button variant={'danger'} disabled={disabled}>Reconnect</Button>
+                    <Button variant={'danger'} onClick={()=>{connect()}} disabled={disabled}>Reconnect</Button>
                 </div>
                 <h3>Azure IoT Hub Connection</h3>
                 <Alert>
