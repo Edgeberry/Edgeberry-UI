@@ -27,3 +27,9 @@ jobs:
 
       - name: Create tarball
         run: tar -zcvf build.tar.gz build
+
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-tarball
+          path: build.tar.gz
