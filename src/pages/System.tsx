@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { api_system_getApplicationInfo, api_system_getNetworkSettings, api_system_reboot, api_system_updateSystemSoftware } from "../api/system";
+import NotificationBox from "../components/Notification";
 
 const System = ()=>{
+    // Error or success messages
+    const[ message, setMessage ] = useState<string>('');
+    const[ isError, setIsError ] = useState<boolean>(false);
     // Network
     const[ ssid, setSsid ] = useState<string>('');
     const[ ipAddress, setIpAddress ] = useState<string>('');
@@ -18,8 +22,8 @@ const System = ()=>{
     async function getNetworkSettings(){
         const result = await api_system_getNetworkSettings();
         if( result.message ){
-            //Todo: handle error
-            return window.alert(result.message);
+            setIsError(true);
+            setMessage(result.message);
         }
         if( typeof(result.ssid) === 'string' ) setSsid(result.ssid);
         if( typeof(result.ipAddress ) === 'string' ) setIpAddress(result.ipAddress);
@@ -30,8 +34,8 @@ const System = ()=>{
     async function getSystemApplicationInfo(){
         const result = await api_system_getApplicationInfo();
         if( result.message ){
-            //Todo: handle error
-            return window.alert(result.message);
+            setIsError(true);
+            setMessage(result.message);
         }
         if( typeof(result.version) === 'string' ) setAppVersion(result.version);
         return;
@@ -44,8 +48,8 @@ const System = ()=>{
 
         const result = await api_system_reboot();
         if( result.message ){
-            //Todo: handle error
-            return window.alert(result.message);
+            setIsError(true);
+            setMessage(result.message);
         }
         return;
     }
@@ -57,8 +61,8 @@ const System = ()=>{
 
         const result = await api_system_updateSystemSoftware();
         if( result.message ){
-            //Todo: handle error
-            return window.alert(result.message);
+            setIsError(true);
+            setMessage(result.message);
         }
         return;
     }
@@ -93,6 +97,7 @@ const System = ()=>{
                     <Form.Control type={'text'} placeholder={'Version'} value={appVersion} disabled/>
                 </Col>
             </Form.Group>
+            <NotificationBox message={message} isError={isError} />
             <Form.Group as={Row} className="mb-2">
                 <Form.Label column sm={2}></Form.Label>
                 <Col sm={6}>
