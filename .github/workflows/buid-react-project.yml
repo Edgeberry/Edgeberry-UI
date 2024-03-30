@@ -32,3 +32,12 @@ jobs:
         with:
           name: project-tarball
           path: build.tar.gz
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: build.tar.gz
+          asset_name: ${{ github.repository }}-${{ github.event.release.tag_name }}.tar.gz
+          asset_content_type: application/gzip
+          token: ${{ secrets.GITHUB_TOKEN }}
