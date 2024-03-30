@@ -12,7 +12,7 @@ export async function api_system_getNetworkSettings(){
         credentials: 'include'
     });
     try{
-        const content = await response.json()
+        const content = await response.json();
         return content;
     } catch(err){
         return {message:err};
@@ -29,7 +29,7 @@ export async function api_system_getApplicationInfo(){
         credentials: 'include'
     });
     try{
-        const content = await response.json()
+        const content = await response.json();
         return content;
     } catch(err){
         return {message:err};
@@ -44,7 +44,8 @@ export async function api_system_updateSystemSoftware(){
         credentials: 'include'
     });
     try{
-        const content = await response.json()
+        let content = await response.json();
+        content.ok = response.ok;
         return content;
     } catch(err){
         return {message:err};
@@ -59,7 +60,7 @@ export async function api_system_reboot(){
         credentials: 'include'
     });
     try{
-        const content = await response.json()
+        const content = await response.json();
         return content;
     } catch(err){
         return {message:err};

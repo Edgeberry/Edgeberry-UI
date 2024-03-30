@@ -7,6 +7,7 @@ import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { faSmileBeam } from "@fortawesome/free-regular-svg-icons";
 
 const System = ()=>{
+    const[ disabled, setDisabled ] = useState<boolean>(false);
     // Error or success messages
     const[ message, setMessage ] = useState<string>('');
     const[ isError, setIsError ] = useState<boolean>(false);
@@ -20,6 +21,15 @@ const System = ()=>{
         getNetworkSettings();
         getSystemApplicationInfo();
     },[]);
+
+    // Disappearing messages
+    useEffect(()=>{
+        if( message === '' ) return;
+        setTimeout(()=>{
+            setMessage('');
+            setIsError(false);
+        },3500);
+    },[message]);
 
     // Get the network settings
     async function getNetworkSettings(){
@@ -48,12 +58,18 @@ const System = ()=>{
     async function requestSystemRestart(){
         // Check if user is sure about this action
         if( !window.confirm("Restart system?") ) return;
+        setDisabled(true);
 
         const result = await api_system_reboot();
-        if( result.message ){
+        if( !result.ok ){
             setIsError(true);
             setMessage(result.message);
         }
+        else{
+            setIsError(false);
+            setMessage(result.message);
+        }
+        setDisabled(false);
         return;
     }
 
@@ -61,20 +77,26 @@ const System = ()=>{
     async function requestSystemSoftwareUpdate(){
         // Check if user is sure about this action
         if( !window.confirm("Update system software?") ) return;
+        setDisabled(true);
 
         const result = await api_system_updateSystemSoftware();
-        if( result.message ){
+        if( !result.ok ){
             setIsError(true);
             setMessage(result.message);
         }
+        else{
+            setIsError(false);
+            setMessage(result.message);
+        }
+        setDisabled(false);
         return;
     }
 
     return(
         <Container>
             <div className="float-right">
-                <Button variant={'danger'} className="mb-2" onClick={()=>{requestSystemRestart()}}><FontAwesomeIcon icon={faPowerOff}/> Restart</Button>&nbsp;
-                <Button variant={'primary'} className="mb-2" ><FontAwesomeIcon icon={faSmileBeam}/> Identify</Button>
+                <Button variant={'danger'} className="mb-2" onClick={()=>{requestSystemRestart()}} disabled={disabled}><FontAwesomeIcon icon={faPowerOff}/> Restart</Button>&nbsp;
+                <Button variant={'primary'} className="mb-2"  disabled={disabled}><FontAwesomeIcon icon={faSmileBeam}/> Identify</Button>
             </div>
 
             <h1>System</h1>
@@ -104,7 +126,7 @@ const System = ()=>{
             <Form.Group as={Row} className="mb-2">
                 <Form.Label column sm={2}></Form.Label>
                 <Col sm={6}>
-                    <Button variant={'danger'} onClick={()=>{requestSystemSoftwareUpdate()}}>Update</Button>
+                    <Button variant={'danger'} onClick={()=>{requestSystemSoftwareUpdate()}} disabled={disabled}>Update</Button>
                 </Col>
             </Form.Group>
         </Container>

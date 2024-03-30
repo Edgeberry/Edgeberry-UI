@@ -43,6 +43,7 @@ const SendMessageModal = ( props:{ show:boolean, onClose:Function })=>{
             setMessage(result.message);
         }
         else{
+            setDisabled(false);
             setIsError(false);
             setMessage(result.message);
         }
