@@ -1,4 +1,4 @@
-import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import Azure from "../components/Azure";
 import SendMessageModal from "../components/SendMessageModal";
 import { useState } from "react";

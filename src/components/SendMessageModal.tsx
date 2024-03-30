@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
-import { Alert, Form, Modal } from "react-bootstrap";
+import { useState } from "react";
+import { Button, Form, Modal } from "react-bootstrap";
 
 const SendMessageModal = ( props:{ show:boolean, onClose:Function })=>{
     // Message body
     const[ body, setBody ] = useState<string>('');
+    // Message properties
+    const[ properties, setProperties ] = useState<JSX.Element[]>([]);
+    const[ propertyList, setPropertyList ] = useState<Object[]>([]);
     // User feedback
     const[ errMsg, setErrMsg ] = useState<string>('');
     const[ isError, setIsError ] = useState<boolean>(false);
@@ -22,8 +25,12 @@ const SendMessageModal = ( props:{ show:boolean, onClose:Function })=>{
                         </Form.Group>
                     </Form>
                 </Modal.Body>
+                <Modal.Footer>
+                    <Button variant={'danger'}>Send message</Button>
+                </Modal.Footer>
             </Modal>
         </>);
 }
 
 export default SendMessageModal;
+

@@ -49,6 +49,11 @@ const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAu
 
     // Update Azure provisioning parameters
     async function updateProvisioningParameters(){
+        // Feedback for the user
+        setIsError(false);
+        setMessage("Saving provisioning parameters...");
+        setDisabled(true);
+
         const parameters = {
             hostName: hostname,
             idScope: idScope,
@@ -67,11 +72,22 @@ const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAu
 
     // (Re)provision the device
     async function provision(){
+        // First save the provisioning parameters
+        await updateProvisioningParameters();
+
+        // Feedback for the user
+        setIsError(false);
+        setMessage("Provisioning device...");
+        setDisabled(true);
+
+        // Request reprovisioning
         const result = await api_connectivity_azure_provision();
         if( result.message ){
             setIsError(true);
             setMessage(result.message);
         }
+
+        setDisabled(false);
     }
     
     return(
@@ -81,11 +97,11 @@ const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAu
                     <Button variant={'danger'} onClick={()=>{provision()}} disabled={disabled}>Reprovision</Button>
                 </div>
                 <h3>Azure Device Provisioning Service</h3>
-                <Alert>
+                {/*<Alert>
                     The Device Provisioning Service is a managed service to allow devices to be provisioned and configured in 
                     a secure and standardized manner to ensure that devices can securely connect to Azure IoT Hub for further 
                     management and communication.
-                </Alert>
+                </Alert>*/}
                 <Form.Group as={Row} className="mb-2">
                     <Form.Label column sm={2}>Hostname</Form.Label>
                     <Col sm={6}>
@@ -129,9 +145,8 @@ const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAu
                     </Form.Group>
                 </>:<></>}
                 <NotificationBox message={message} isError={isError} />
-                <Button variant={'primary'} disabled={disabled} onClick={updateProvisioningParameters}>Save</Button>&nbsp;
-                <Button variant={'danger'} disabled={disabled}>Reset</Button>
             </Form>
+            <br/>
         </>
     );
 }
