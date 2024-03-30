@@ -25,7 +25,7 @@ jobs:
         run: npm run build
 
       - name: Create tarball
-        run: tar -zcvf build.tar.gz -C build *
+        run: tar -C ./build -zcvf build.tar.gz *
 
       - name: Get Project Name
         id: project_name
