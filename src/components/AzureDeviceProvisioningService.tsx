@@ -97,6 +97,7 @@ const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAu
                     <Button variant={'danger'} onClick={()=>{provision()}} disabled={disabled}>Reprovision</Button>
                 </div>
                 <h3>Azure Device Provisioning Service</h3>
+                <br/>
                 {/*<Alert>
                     The Device Provisioning Service is a managed service to allow devices to be provisioned and configured in 
                     a secure and standardized manner to ensure that devices can securely connect to Azure IoT Hub for further 

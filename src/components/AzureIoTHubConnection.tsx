@@ -60,10 +60,17 @@ const AzureIoTHubConnection = ( props:{authenticationType:string, setAuthenticat
 
     // (Re)connect the device
     async function connect(){
+        // Update connection parameters
+        await updateConnectionParameters();
+
+        setIsError(false);
+        setMessage('Reconnecting to Azure IoT Hub...');
+
+        // Reconnect to Azure IoT Hub
         const result = await api_connectivity_azure_connect();
         if( result.message ){
             setIsError(true);
-            //setMessage(result.message);
+            setMessage(result.message);
         }
     }
     
@@ -71,14 +78,15 @@ const AzureIoTHubConnection = ( props:{authenticationType:string, setAuthenticat
         <>
             <Form>
                 <div className="float-right">
-                    <Button variant={'danger'} onClick={()=>{connect()}} disabled={disabled}>Reconnect</Button>
+                    <Button variant={'danger'} onClick={()=>{connect()}} >Reconnect</Button>
                 </div>
                 <h3>Azure IoT Hub Connection</h3>
-                <Alert>
+                <br/>
+                {/*<Alert>
                     IoT Hub connection properties are essential parameters required for devices
                     to securely connect to Azure IoT Hub. The IoT Hub connection enables this device 
                     to send telemetry data, receive commands, and interact with the IoT Hub services.
-                </Alert>
+                </Alert>*/}
                 <Form.Group as={Row} className="mb-2">
                     <Form.Label column sm={2}>Hostname</Form.Label>
                     <Col sm={6}>
@@ -116,8 +124,6 @@ const AzureIoTHubConnection = ( props:{authenticationType:string, setAuthenticat
                     </Form.Group>
                 </>:<></>}
                 <NotificationBox message={message} isError={isError} />
-                <Button variant={'primary'} disabled={disabled} onClick={updateConnectionParameters}>Save</Button>&nbsp;
-                <Button variant={'danger'} disabled={disabled}>Reset</Button>
             </Form>
         </>
     );
