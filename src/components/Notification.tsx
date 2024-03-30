@@ -1,11 +1,8 @@
 import { faCheck, faWarning } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
 import { Alert } from "react-bootstrap";
 
 const NotificationBox = ( props:{ message:string, isError?:boolean })=>{
-    const[ message, setMessage ] = useState<string>('');
-
     return(<>
             {props.message?
                 <Alert variant={props.isError?'danger':'success'}>

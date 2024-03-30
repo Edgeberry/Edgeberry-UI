@@ -1,6 +1,8 @@
-import { useState } from "react";
-import { Button, Col, Container, Form, Modal, Row } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import NotificationBox from "./Notification";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const SendMessageModal = ( props:{ show:boolean, onClose:Function })=>{
     // Message body
@@ -9,9 +11,54 @@ const SendMessageModal = ( props:{ show:boolean, onClose:Function })=>{
     const[ properties, setProperties ] = useState<JSX.Element[]>([]);
     const[ propertyList, setPropertyList ] = useState<Object[]>([]);
     // User feedback
-    const[ message, setMessage ] = useState<string>('Zeemeermin');
+    const[ message, setMessage ] = useState<string>('');
     const[ isError, setIsError ] = useState<boolean>(false);
     const[ disabled, setDisabled ] = useState<boolean>(false);
+
+    // Create a new property
+    function newProperty(){
+        const property = { key:'', value: '', id:'property-'+Math.floor(Math.random()*1000)};
+        setPropertyList(propertyList =>[...propertyList, property]);
+    }
+
+    // Remove a property by ID
+    function removePropertyById( id:string ){
+        console.log('deleting: '+id)
+        let properties = [...propertyList];
+        properties.splice( properties.findIndex((property:any)=>{return property.id === id}),1);
+        setPropertyList([...properties]);
+    }
+
+    // Update a property in the list
+    function updatePropertyById(id:string, key:string, value:string){
+        setPropertyList([...
+            propertyList.map( (property:any)=>{
+                if(property.id === id ) return {...property, key:key, value:value };
+                return property;
+            })]
+        );
+    }
+
+
+    /* Visualisation of the properties */
+    // Whenever the list of properties changes, update the visual
+    // representation
+    useEffect(()=>{
+        populatePropertyElements();
+        console.log(propertyList);
+    },[propertyList])
+
+    // Visualize the list of properties
+    function populatePropertyElements(){
+        setProperties([]);
+        propertyList.forEach( (property:any) =>{
+            setProperties( properties =>[...properties, <MessageProperty property={property}
+                                                                         onDelete={removePropertyById}
+                                                                         onChange={updatePropertyById}
+                                                                         key={property.id}
+                                                        />]);
+        });
+    }
 
     return(<>
             <Modal size={'lg'} onHide={()=>{props.onClose()}} show={props.show} >
@@ -27,9 +74,8 @@ const SendMessageModal = ( props:{ show:boolean, onClose:Function })=>{
                     </Form>
                     <br/>
                     <p>Properties</p>
-                    <MessageProperty />
-                    <MessageProperty />
-                    <MessageProperty />
+                    {properties}
+                    <Button onClick={()=>{newProperty()}}>New Property</Button>
                     <NotificationBox message={message} isError={isError} />
                 </Modal.Body>
                 <Modal.Footer>
@@ -41,16 +87,18 @@ const SendMessageModal = ( props:{ show:boolean, onClose:Function })=>{
 
 export default SendMessageModal;
 
-const MessageProperty = ()=>{
+const MessageProperty = ( props:{ property:any, onDelete:Function, onChange:Function })=>{
     const[ key, setKey ] = useState<string>('');
     const[ value, setValue ] = useState<string>('');
 
-
+    useEffect(()=>{
+        props.onChange( props.property.id, key, value );
+    },[key,value]);
 
     return(
             <Form.Group as={Row} className="mb-2">
                 <Col sm={1}>
-                    <Button variant={'danger'} onClick={()=>{}}>X</Button>
+                    <Button variant={'danger'} onClick={()=>{props.onDelete(props.property.id)}}><FontAwesomeIcon icon={faTrash}/></Button>
                 </Col>
                 <Col sm={5}>
                     <Form.Control type={'text'} placeholder={'Key'} value={key} onChange={(e)=>{setKey(e.target.value)}}/>
