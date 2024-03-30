@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Alert, Button, Col, Form, Row } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import { api_connectivity_azure_connect, api_connectivity_azure_getConnectionParameters, api_connectivity_azure_updateConnectionParameters } from "../api/connectivity";
 import NotificationBox from "./Notification";
 

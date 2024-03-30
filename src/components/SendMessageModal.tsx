@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import { Button, Col, Container, Form, Modal, Row } from "react-bootstrap";
+import NotificationBox from "./Notification";
 
 const SendMessageModal = ( props:{ show:boolean, onClose:Function })=>{
     // Message body
@@ -8,7 +9,7 @@ const SendMessageModal = ( props:{ show:boolean, onClose:Function })=>{
     const[ properties, setProperties ] = useState<JSX.Element[]>([]);
     const[ propertyList, setPropertyList ] = useState<Object[]>([]);
     // User feedback
-    const[ errMsg, setErrMsg ] = useState<string>('');
+    const[ message, setMessage ] = useState<string>('Zeemeermin');
     const[ isError, setIsError ] = useState<boolean>(false);
     const[ disabled, setDisabled ] = useState<boolean>(false);
 
@@ -24,6 +25,12 @@ const SendMessageModal = ( props:{ show:boolean, onClose:Function })=>{
                             <Form.Control as={'textarea'} rows={4} placeholder={'Message body'} value={body} onChange={(e)=>{setBody(e.target.value)}} disabled={disabled}/>
                         </Form.Group>
                     </Form>
+                    <br/>
+                    <p>Properties</p>
+                    <MessageProperty />
+                    <MessageProperty />
+                    <MessageProperty />
+                    <NotificationBox message={message} isError={isError} />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant={'danger'}>Send message</Button>
@@ -34,3 +41,23 @@ const SendMessageModal = ( props:{ show:boolean, onClose:Function })=>{
 
 export default SendMessageModal;
 
+const MessageProperty = ()=>{
+    const[ key, setKey ] = useState<string>('');
+    const[ value, setValue ] = useState<string>('');
+
+
+
+    return(
+            <Form.Group as={Row}>
+                <Col sm={1}>
+                    <Button variant={'danger'} onClick={()=>{}}>X</Button>
+                </Col>
+                <Col sm={5}>
+                    <Form.Control type={'text'} placeholder={'Key'} value={key} onChange={(e)=>{setKey(e.target.value)}}/>
+                </Col>
+                <Col sm={6}>
+                    <Form.Control type={'text'} placeholder={'Value'} value={value} onChange={(e)=>{setValue(e.target.value)}}/>
+                </Col>
+            </Form.Group>
+    );
+}

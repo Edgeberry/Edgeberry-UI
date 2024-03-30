@@ -4,7 +4,7 @@ import SendMessageModal from "../components/SendMessageModal";
 import { useState } from "react";
 
 const Connectivity = ()=>{
-    const[show, setShow] = useState<boolean>(true);
+    const[show, setShow] = useState<boolean>(false);
 
     return(
         <Container>
