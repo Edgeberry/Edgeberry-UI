@@ -24,6 +24,15 @@ const AzureIoTHubConnection = ( props:{authenticationType:string, setAuthenticat
     useEffect(()=>{
         getConnectionParameters();
     },[]);
+    
+    // Disappearing messages
+    useEffect(()=>{
+        if( message === '' ) return;
+        setTimeout(()=>{
+            setMessage('');
+            setIsError(false);
+        },3500);
+    },[message]);
 
     // Get Azure IoT Hub connection parameters
     async function getConnectionParameters(){
@@ -68,10 +77,15 @@ const AzureIoTHubConnection = ( props:{authenticationType:string, setAuthenticat
 
         // Reconnect to Azure IoT Hub
         const result = await api_connectivity_azure_connect();
-        if( result.message ){
+        if( !result.ok ){
             setIsError(true);
             setMessage(result.message);
         }
+        else{
+            setIsError(false);
+            setMessage(result.message);
+        }
+    
     }
     
     return(

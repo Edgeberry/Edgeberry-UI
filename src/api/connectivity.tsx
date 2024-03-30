@@ -52,8 +52,9 @@ export async function api_connectivity_azure_connect(){
         headers: {'Content-Type': 'application/json'},
         credentials: 'include',
     });
-
-    const content = await response.json();
+    
+    let content = await response.json();
+    content.ok = response.ok
     return content;
 }
 
@@ -96,6 +97,7 @@ export async function api_connectivity_azure_provision(){
         credentials: 'include',
     });
 
-    const content = await response.json();
+    let content = await response.json();
+    content.ok = response.ok
     return content;
 }

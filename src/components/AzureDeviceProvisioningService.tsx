@@ -27,6 +27,15 @@ const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAu
         getProvisioningParameters();
     },[]);
 
+    // Disappearing messages
+    useEffect(()=>{
+        if( message === '' ) return;
+        setTimeout(()=>{
+            setMessage('');
+            setIsError(false);
+        },3500);
+    },[message]);
+
     // Get Azure Provisioning parameters
     async function getProvisioningParameters(){
         const result = await api_connectivity_azure_getProvisioningParameters();
@@ -82,8 +91,12 @@ const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAu
 
         // Request reprovisioning
         const result = await api_connectivity_azure_provision();
-        if( result.message ){
+        if( !result.ok ){
             setIsError(true);
+            setMessage(result.message);
+        }
+        else{
+            setIsError(false);
             setMessage(result.message);
         }
 
