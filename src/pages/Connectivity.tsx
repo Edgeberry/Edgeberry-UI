@@ -4,17 +4,19 @@ import SendMessageModal from "../components/SendMessageModal";
 import { useEffect, useState } from "react";
 import { api_connectivity_azure_getStatus } from "../api/connectivity";
 import StatusIndicator from "../components/StatusIndicator";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 const Connectivity = ()=>{
     const[show, setShow] = useState<boolean>(false);
-    const[ status, setStatus ] = useState<any>({});
 
     // Connection/provisioning status
     const[ statusMessage, setStatusMessage ] = useState<string>('');
     const[ statusType, setStatusType ] = useState<string>('');
 
     useEffect(()=>{
-        setInterval(()=>{getStatus()},500);
+        getStatus();
+        setInterval(()=>{getStatus()},900);
     },[]);
 
     async function getStatus(){
@@ -56,7 +58,7 @@ const Connectivity = ()=>{
     return(
         <Container>
             <div className="float-right">
-                <Button variant={'danger'} onClick={()=>{setShow(true)}}>Message</Button>
+                <Button variant={'danger'} onClick={()=>{setShow(true)}} className="mb-2"><FontAwesomeIcon icon={faEnvelope}/> Message</Button>
             </div>
             <h1>Connectivity</h1>
             <StatusIndicator message={statusMessage} type={statusType}/>

@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { api_system_getApplicationInfo, api_system_getNetworkSettings, api_system_reboot, api_system_updateSystemSoftware } from "../api/system";
 import NotificationBox from "../components/Notification";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
+import { faSmileBeam } from "@fortawesome/free-regular-svg-icons";
 
 const System = ()=>{
     // Error or success messages
@@ -70,8 +73,8 @@ const System = ()=>{
     return(
         <Container>
             <div className="float-right">
-                <Button variant={'danger'} onClick={()=>{requestSystemRestart()}}>Restart</Button> &nbsp;
-                <Button variant={'primary'}>Identify</Button>
+                <Button variant={'danger'} className="mb-2" onClick={()=>{requestSystemRestart()}}><FontAwesomeIcon icon={faPowerOff}/> Restart</Button>&nbsp;
+                <Button variant={'primary'} className="mb-2" ><FontAwesomeIcon icon={faSmileBeam}/> Identify</Button>
             </div>
 
             <h1>System</h1>

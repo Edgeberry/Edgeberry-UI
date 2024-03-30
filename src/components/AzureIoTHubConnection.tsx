@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { api_connectivity_azure_connect, api_connectivity_azure_getConnectionParameters, api_connectivity_azure_updateConnectionParameters } from "../api/connectivity";
 import NotificationBox from "./Notification";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRetweet } from "@fortawesome/free-solid-svg-icons";
 
 const AzureIoTHubConnection = ( props:{authenticationType:string, setAuthenticationType?:Function, disabled?:boolean } )=>{
     const[ disabled, setDisabled ] = useState<boolean>(false);
@@ -24,7 +26,7 @@ const AzureIoTHubConnection = ( props:{authenticationType:string, setAuthenticat
     useEffect(()=>{
         getConnectionParameters();
     },[]);
-    
+
     // Disappearing messages
     useEffect(()=>{
         if( message === '' ) return;
@@ -92,7 +94,7 @@ const AzureIoTHubConnection = ( props:{authenticationType:string, setAuthenticat
         <>
             <Form>
                 <div className="float-right">
-                    <Button variant={'danger'} onClick={()=>{connect()}} >Reconnect</Button>
+                    <Button variant={'danger'} onClick={()=>{connect()}} className="mb-2"><FontAwesomeIcon icon={faRetweet}/> Reconnect</Button>
                 </div>
                 <h3>Azure IoT Hub Connection</h3>
                 <br/>

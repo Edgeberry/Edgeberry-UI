@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { api_connectivity_azure_getProvisioningParameters, api_connectivity_azure_provision, api_connectivity_azure_updateProvisioningParameters } from "../api/connectivity";
 import NotificationBox from "./Notification";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRetweet } from "@fortawesome/free-solid-svg-icons";
 
 const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAuthenticationType?:Function, disabled?:boolean } )=>{
     const[ disabled, setDisabled ] = useState<boolean>(false);
@@ -107,7 +109,7 @@ const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAu
         <>
             <Form>
                 <div className="float-right">
-                    <Button variant={'danger'} onClick={()=>{provision()}} disabled={disabled}>Reprovision</Button>
+                    <Button variant={'danger'} onClick={()=>{provision()}}  className="mb-2" disabled={disabled}><FontAwesomeIcon icon={faRetweet}/> Reprovision</Button>
                 </div>
                 <h3>Azure Device Provisioning Service</h3>
                 <br/>
