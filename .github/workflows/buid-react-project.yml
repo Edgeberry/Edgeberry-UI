@@ -27,6 +27,10 @@ jobs:
       - name: Create tarball
         run: tar -zcvf build.tar.gz build
 
+      - name: Get Project Name
+        id: project_name
+        run: echo "::set-output name=name::$(echo ${{ github.repository }} | cut -d'/' -f2)"
+
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
         env:
@@ -34,5 +38,5 @@ jobs:
         with:
           upload_url: ${{ github.event.release.upload_url }}
           asset_path: build.tar.gz
-          asset_name: ${{ github.repository }}-${{ github.event.release.tag_name }}.tar.gz
+          asset_name: ${{ steps.project_name.outputs.name }}-${{ github.event.release.tag_name }}.tar.gz
           asset_content_type: application/gzip
