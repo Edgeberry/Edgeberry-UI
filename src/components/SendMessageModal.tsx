@@ -48,7 +48,7 @@ const MessageProperty = ()=>{
 
 
     return(
-            <Form.Group as={Row}>
+            <Form.Group as={Row} className="mb-2">
                 <Col sm={1}>
                     <Button variant={'danger'} onClick={()=>{}}>X</Button>
                 </Col>
