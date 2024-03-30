@@ -1,14 +1,19 @@
 import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import Azure from "../components/Azure";
+import SendMessageModal from "../components/SendMessageModal";
+import { useState } from "react";
 
 const Connectivity = ()=>{
+    const[show, setShow] = useState<boolean>(true);
+
     return(
         <Container>
             <div className="float-right">
-                <Button variant={'danger'}>Message</Button>
+                <Button variant={'danger'} onClick={()=>{setShow(true)}}>Message</Button>
             </div>
             <h1>Connectivity</h1>
             <br/>
+            <SendMessageModal show={show} onClose={()=>{setShow(false)}}/>
             <Form.Group as={Row} className="mb-2">
                     <Form.Label column sm={2}>Platform</Form.Label>
                     <Col sm={6}>
