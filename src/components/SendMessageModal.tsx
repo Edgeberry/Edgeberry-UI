@@ -3,6 +3,7 @@ import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import NotificationBox from "./Notification";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { api_connectivity_azure_sendMessage } from "../api/connectivity";
 
 const SendMessageModal = ( props:{ show:boolean, onClose:Function })=>{
     // Message body
@@ -14,6 +15,38 @@ const SendMessageModal = ( props:{ show:boolean, onClose:Function })=>{
     const[ message, setMessage ] = useState<string>('');
     const[ isError, setIsError ] = useState<boolean>(false);
     const[ disabled, setDisabled ] = useState<boolean>(false);
+
+    // Disappearing messages
+    useEffect(()=>{
+        if( message === '' ) return;
+        setTimeout(()=>{
+            setMessage('');
+            setIsError(false);
+        },3500);
+    },[message]);
+
+    // Send the message
+    async function sendMessage(){
+        setDisabled(true);
+        setIsError(false);
+        setMessage("Sending message...");
+
+        // Remove the ID from each property
+        let properties = propertyList.map( (property:any)=>{
+            return (({id, ...o})=>o)(property);
+        });
+
+        const result = await api_connectivity_azure_sendMessage( message, properties );
+        if( !result.ok ){
+            setDisabled(false);
+            setIsError(true);
+            setMessage(result.message);
+        }
+        else{
+            setIsError(false);
+            setMessage(result.message);
+        }
+    }
 
     // Create a new property
     function newProperty(){
@@ -79,7 +112,7 @@ const SendMessageModal = ( props:{ show:boolean, onClose:Function })=>{
                     <NotificationBox message={message} isError={isError} />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant={'danger'}>Send message</Button>
+                    <Button variant={'danger'} onClick={()=>{sendMessage()}}>Send message</Button>
                 </Modal.Footer>
             </Modal>
         </>);

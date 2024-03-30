@@ -98,6 +98,23 @@ export async function api_connectivity_azure_provision(){
     });
 
     let content = await response.json();
-    content.ok = response.ok
+    content.ok = response.ok;
+    return content;
+}
+
+/* Send Message to Azure IoT Hub */
+export async function api_connectivity_azure_sendMessage( message:string, properties:any[]){
+    const response = await fetch( window.location.origin+'/api/connectivity/azure/sendmessage',{
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        credentials: 'include',
+        body: JSON.stringify({
+            message: message,
+            properties: properties
+        })
+    });
+
+    let content = await response.json();
+    content.ok = response.ok;
     return content;
 }
