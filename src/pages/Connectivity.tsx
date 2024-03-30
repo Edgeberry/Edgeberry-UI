@@ -3,10 +3,15 @@ import Azure from "../components/Azure";
 import SendMessageModal from "../components/SendMessageModal";
 import { useEffect, useState } from "react";
 import { api_connectivity_azure_getStatus } from "../api/connectivity";
+import StatusIndicator from "../components/StatusIndicator";
 
 const Connectivity = ()=>{
     const[show, setShow] = useState<boolean>(false);
     const[ status, setStatus ] = useState<any>({});
+
+    // Connection/provisioning status
+    const[ statusMessage, setStatusMessage ] = useState<string>('');
+    const[ statusType, setStatusType ] = useState<string>('');
 
     useEffect(()=>{
         setInterval(()=>{getStatus()},500);
@@ -17,7 +22,35 @@ const Connectivity = ()=>{
         if(result.message){
             return;
         }
-        setStatus(result);
+        ///setStatus(result);
+        determineStatus( result );
+    }
+
+    function determineStatus( status:any ){
+        if( status?.provisioned){
+            // If the device is provisioned,
+            // we check the connection status.
+            if(status?.connected){
+                setStatusType('success');
+                setStatusMessage('Connected');
+            }
+            else{
+                setStatusType('danger');
+                setStatusMessage('Disconnected');
+            }
+        }
+        else{
+            // If the device is not provisioned,
+            // we check the provisioning status
+            if( status?.provisioning ){
+                setStatusType('warning');
+                setStatusMessage('Provisioning...');
+            }
+            else{
+                setStatusType('danger');
+                setStatusMessage('Unprovisioned');
+            }
+        }
     }
 
     return(
@@ -26,8 +59,7 @@ const Connectivity = ()=>{
                 <Button variant={'danger'} onClick={()=>{setShow(true)}}>Message</Button>
             </div>
             <h1>Connectivity</h1>
-            {/*{status?.connected?"Connected":status?.connecting?"Connecting...":"Disconnected"}*/}
-            {status?.provisioned?(status?.connected?"Connected":(status?.connecting?"Connecting...":"Disconnected")):(status?.provisioning?"Provisioning...":"Not provisioned")}
+            <StatusIndicator message={statusMessage} type={statusType}/>
             <br/>
             <SendMessageModal show={show} onClose={()=>{setShow(false)}}/>
             <Form.Group as={Row} className="mb-2">
