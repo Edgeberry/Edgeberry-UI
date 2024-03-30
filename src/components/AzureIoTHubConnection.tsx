@@ -4,6 +4,7 @@ import { api_connectivity_azure_connect, api_connectivity_azure_getConnectionPar
 import NotificationBox from "./Notification";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRetweet } from "@fortawesome/free-solid-svg-icons";
+import CertificateControl from "./CertificateControl";
 
 const AzureIoTHubConnection = ( props:{authenticationType:string, setAuthenticationType?:Function, disabled?:boolean } )=>{
     const[ disabled, setDisabled ] = useState<boolean>(false);
@@ -129,13 +130,13 @@ const AzureIoTHubConnection = ( props:{authenticationType:string, setAuthenticat
                     <Form.Group as={Row} className="mb-2">
                         <Form.Label column sm={2}>Certificate</Form.Label>
                         <Col sm={6}>
-                            <Form.Control type={'text'} placeholder={'Certificate'} required disabled={disabled}/>
+                            <CertificateControl name={'Certificate'} value={cert} onChange={(e:any)=>{setCert(e.target.value)}} disabled={disabled}/>
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-2">
                         <Form.Label column sm={2}>Private Key</Form.Label>
                         <Col sm={6}>
-                            <Form.Control type={'text'} placeholder={'Private Key'} required disabled={disabled}/>
+                            <CertificateControl name={'Private Key'} value={pKey} onChange={(e:any)=>{setPKey(e.target.value)}} disabled={disabled}/>
                         </Col>
                     </Form.Group>
                 </>:<></>}

@@ -4,6 +4,7 @@ import { api_connectivity_azure_getProvisioningParameters, api_connectivity_azur
 import NotificationBox from "./Notification";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRetweet } from "@fortawesome/free-solid-svg-icons";
+import CertificateControl from "./CertificateControl";
 
 const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAuthenticationType?:Function, disabled?:boolean } )=>{
     const[ disabled, setDisabled ] = useState<boolean>(false);
@@ -150,13 +151,13 @@ const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAu
                     <Form.Group as={Row} className="mb-2">
                         <Form.Label column sm={2}>Certificate</Form.Label>
                         <Col sm={6}>
-                            <Form.Control type={'text'} placeholder={'Certificate'} value={cert} onChange={(e)=>{setCert(e.target.value)}} required disabled={disabled}/>
+                            <CertificateControl name={'Certificate'} value={cert} onChange={(e:any)=>{setCert(e.target.value)}} disabled={disabled}/>
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-2">
                         <Form.Label column sm={2}>Private Key</Form.Label>
                         <Col sm={6}>
-                            <Form.Control type={'text'} placeholder={'Private Key'} value={pkey} onChange={(e)=>{setPKey(e.target.value)}} required disabled={disabled}/>
+                            <CertificateControl name={'Private Key'} value={pkey} onChange={(e:any)=>{setPKey(e.target.value)}} disabled={disabled}/>
                         </Col>
                     </Form.Group>
                 </>:<></>}
