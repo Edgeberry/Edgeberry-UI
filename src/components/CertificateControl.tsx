@@ -18,7 +18,7 @@ const CertificateControl = ( props:{ name:string, value:string, onChange:Functio
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
-                        <Form.Control as={'textarea'} rows={4} value={props.value} onChange={props.onChange as ChangeEventHandler} disabled={props.disabled}/>
+                        <Form.Control as={'textarea'} rows={30} value={props.value} onChange={props.onChange as ChangeEventHandler} disabled={props.disabled}/>
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>

@@ -96,7 +96,7 @@ const System = ()=>{
         <Container>
             <div className="float-right">
                 <Button variant={'danger'} className="mb-2" onClick={()=>{requestSystemRestart()}} disabled={disabled}><FontAwesomeIcon icon={faPowerOff}/> Restart</Button>&nbsp;
-                <Button variant={'primary'} className="mb-2"  disabled={disabled}><FontAwesomeIcon icon={faSmileBeam}/> Identify</Button>
+                {/*<Button variant={'primary'} className="mb-2"  disabled={disabled}><FontAwesomeIcon icon={faSmileBeam}/> Identify</Button>*/}
             </div>
 
             <h1>System</h1>
