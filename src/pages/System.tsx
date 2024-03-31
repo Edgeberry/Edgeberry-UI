@@ -5,6 +5,7 @@ import NotificationBox from "../components/Notification";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { faSmileBeam } from "@fortawesome/free-regular-svg-icons";
+import StatusIndicator from "../components/StatusIndicator";
 
 const System = ()=>{
     const[ disabled, setDisabled ] = useState<boolean>(false);
@@ -14,8 +15,11 @@ const System = ()=>{
     // Network
     const[ ssid, setSsid ] = useState<string>('');
     const[ ipAddress, setIpAddress ] = useState<string>('');
-    // System application
+    // System application info
     const[ appVersion, setAppVersion ] = useState<string>('');
+    const[ cpuUsage, setCpuUsage ] = useState<string>('');
+    const[ memUsage, setMemUsage ] = useState<string>('');
+    const[ appStatus, setAppStatus ] = useState<string>('');
 
     useEffect(()=>{
         getNetworkSettings();
@@ -51,6 +55,9 @@ const System = ()=>{
             setMessage(result.message);
         }
         if( typeof(result.version) === 'string' ) setAppVersion(result.version);
+        if( typeof(result.status) === 'string' ) setAppStatus(result.status);
+        if( typeof(result.memUsage) === 'string' ) setMemUsage(result.memUsage);
+        if( typeof(result.cpuUsage) === 'string' ) setCpuUsage(result.cpuUsage);
         return;
     }
 
@@ -115,7 +122,21 @@ const System = ()=>{
                 </Col>
             </Form.Group>
             <hr/>
+
             <h2>System software</h2>
+            <StatusIndicator message={appStatus==='online'?'Running':appStatus} type={appStatus==='online'?'success':'danger'}/>
+            <Form.Group as={Row} className="mb-2">
+                <Form.Label column sm={2}>CPU usage</Form.Label>
+                <Col sm={6}>
+                    <Form.Control type={'text'} placeholder={'cpuUsage'} value={cpuUsage} disabled/>
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row} className="mb-2">
+                <Form.Label column sm={2}>Memory usage</Form.Label>
+                <Col sm={6}>
+                    <Form.Control type={'text'} placeholder={'Memory usage'} value={memUsage} disabled/>
+                </Col>
+            </Form.Group>
             <Form.Group as={Row} className="mb-2">
                 <Form.Label column sm={2}>Version</Form.Label>
                 <Col sm={6}>
