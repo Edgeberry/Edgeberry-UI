@@ -4,7 +4,6 @@ import { api_system_getApplicationInfo, api_system_getNetworkSettings, api_syste
 import NotificationBox from "../components/Notification";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
-import { faSmileBeam } from "@fortawesome/free-regular-svg-icons";
 import StatusIndicator from "../components/StatusIndicator";
 
 const System = ()=>{
@@ -12,9 +11,11 @@ const System = ()=>{
     // Error or success messages
     const[ message, setMessage ] = useState<string>('');
     const[ isError, setIsError ] = useState<boolean>(false);
+
     // Network
     const[ ssid, setSsid ] = useState<string>('');
     const[ ipAddress, setIpAddress ] = useState<string>('');
+
     // System application info
     const[ appVersion, setAppVersion ] = useState<string>('');
     const[ cpuUsage, setCpuUsage ] = useState<string>('');
@@ -138,7 +139,7 @@ const System = ()=>{
                 </Col>
             </Form.Group>
             <Form.Group as={Row} className="mb-2">
-                <Form.Label column sm={2}>Version</Form.Label>
+                <Form.Label column sm={2}>Application version</Form.Label>
                 <Col sm={6}>
                     <Form.Control type={'text'} placeholder={'Version'} value={appVersion} disabled/>
                 </Col>

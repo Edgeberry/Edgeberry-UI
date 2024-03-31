@@ -60,7 +60,8 @@ export async function api_system_reboot(){
         credentials: 'include'
     });
     try{
-        const content = await response.json();
+        let content = await response.json();
+        content.ok = response.ok;
         return content;
     } catch(err){
         return {message:err};
