@@ -1,18 +1,72 @@
-import { useState } from "react";
-import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { api_application_restart, api_application_stop } from "../api/application";
+import NotificationBox from "../components/Notification";
 
 const Application = ()=>{
     const[ disabled, setDisabled ] = useState<boolean>(false);
+    // Error or success messages
+    const[ message, setMessage ] = useState<string>('');
+    const[ isError, setIsError ] = useState<boolean>(false);
+
     const[ repository, setRepository ] = useState<string>('');
     const[ accessToken, setAccessToken ] = useState<string>('');
     const[ privateRepo, setPrivateRepo ] = useState<boolean>(false);
     const[ appName, setAppName ] = useState<string>('');
     const[ appVersion, setAppVersion ] = useState<string>('');
 
+    // Disappearing messages
+    useEffect(()=>{
+        if( message === '' ) return;
+        setTimeout(()=>{
+            setMessage('');
+            setIsError(false);
+        },3500);
+    },[message]);
+
+    // Start the application
+    async function restartApplication(){
+        // Check if user is sure about this action
+        if( !window.confirm("Restart the application?") ) return;
+        setDisabled(true);
+
+        const result = await api_application_restart();
+        if( !result.ok ){
+            setIsError(true);
+            setMessage(result.message);
+        }
+        else{
+            setIsError(false);
+            setMessage(result.message);
+        }
+        setDisabled(false);
+        return;
+    }
+
+    // Stop the application
+    async function stopApplication(){
+        // Check if user is sure about this action
+        if( !window.confirm("Stop the application?") ) return;
+        setDisabled(true);
+
+        const result = await api_application_stop();
+        if( !result.ok ){
+            setIsError(true);
+            setMessage(result.message);
+        }
+        else{
+            setIsError(false);
+            setMessage(result.message);
+        }
+        setDisabled(false);
+        return;
+    }
+
     return(
         <Container>
             <div className="float-right">
-                <Button variant={'danger'}>Restart</Button>
+                <Button variant={'danger'} onClick={()=>{restartApplication()}}>Restart</Button>&nbsp;
+                <Button variant={'danger'} onClick={()=>{stopApplication()}}>Stop</Button>
             </div>
             <h1>Application</h1>
             <br/>
@@ -54,6 +108,7 @@ const Application = ()=>{
                         <Button variant={'danger'}>Update</Button>
                     </Col>
                 </Form.Group>
+            <NotificationBox message={message} isError={isError} />
         </Container>
     );
 }
