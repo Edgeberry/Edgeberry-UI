@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { api_application_restart, api_application_stop } from "../api/application";
+import { api_application_getApplicationInfo, api_application_restart, api_application_stop } from "../api/application";
 import NotificationBox from "../components/Notification";
+import StatusIndicator from "../components/StatusIndicator";
 
 const Application = ()=>{
     const[ disabled, setDisabled ] = useState<boolean>(false);
@@ -13,7 +14,16 @@ const Application = ()=>{
     const[ accessToken, setAccessToken ] = useState<string>('');
     const[ privateRepo, setPrivateRepo ] = useState<boolean>(false);
     const[ appName, setAppName ] = useState<string>('');
+    // Application info
     const[ appVersion, setAppVersion ] = useState<string>('');
+    const[ cpuUsage, setCpuUsage ] = useState<string>('');
+    const[ memUsage, setMemUsage ] = useState<string>('');
+    const[ appStatus, setAppStatus ] = useState<string>('');
+
+
+    useEffect(()=>{
+        getApplicationInfo();
+    },[]);
 
     // Disappearing messages
     useEffect(()=>{
@@ -61,6 +71,20 @@ const Application = ()=>{
         setDisabled(false);
         return;
     }
+    // Get the system application info
+    async function getApplicationInfo(){
+        const result = await api_application_getApplicationInfo();
+        if( result.message ){
+            setIsError(true);
+            setMessage(result.message);
+        }
+        if( typeof(result.name) === 'string' ) setAppName(result.name);
+        if( typeof(result.version) === 'string' ) setAppVersion(result.version);
+        if( typeof(result.status) === 'string' ) setAppStatus(result.status);
+        if( typeof(result.memUsage) === 'string' ) setMemUsage(result.memUsage);
+        if( typeof(result.cpuUsage) === 'string' ) setCpuUsage(result.cpuUsage);
+        return;
+    }
 
     return(
         <Container>
@@ -69,6 +93,8 @@ const Application = ()=>{
                 <Button variant={'danger'} onClick={()=>{stopApplication()}}>Stop</Button>
             </div>
             <h1>Application</h1>
+            <StatusIndicator message={appStatus==='online'?'Running':appStatus} type={appStatus==='online'?'success':'danger'}/>
+
             <br/>
             <Form.Group as={Row} className="mb-2">
                     <Form.Label column sm={2}>Repository (tarball)</Form.Label>
@@ -94,6 +120,18 @@ const Application = ()=>{
                     <Form.Label column sm={2}>Application name</Form.Label>
                     <Col sm={6}>
                         <Form.Control type={'text'} placeholder={'Application name'} value={appName} disabled/>
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} className="mb-2">
+                    <Form.Label column sm={2}>CPU usage</Form.Label>
+                    <Col sm={6}>
+                        <Form.Control type={'text'} placeholder={'CPU usage'} value={cpuUsage} disabled/>
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} className="mb-2">
+                    <Form.Label column sm={2}>Memory usage</Form.Label>
+                    <Col sm={6}>
+                        <Form.Control type={'text'} placeholder={'Memory usage'} value={memUsage} disabled/>
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} className="mb-2">
