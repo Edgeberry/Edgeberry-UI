@@ -110,7 +110,7 @@ const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAu
         <>
             <Form>
                 <div className="float-right">
-                    <Button variant={'danger'} onClick={()=>{provision()}}  className="mb-2" disabled={disabled}><FontAwesomeIcon icon={faRetweet}/> Reprovision</Button>
+                    <Button variant={'primary'} onClick={()=>{provision()}}  className="mb-2" disabled={disabled}><FontAwesomeIcon icon={faRetweet}/> Reprovision</Button>
                 </div>
                 <h3>Azure Device Provisioning Service</h3>
                 <br/>

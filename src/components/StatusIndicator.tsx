@@ -7,11 +7,13 @@ const StatusIndicator = ( props:{ message:string, type?:string, noText?:boolean}
 
     useEffect(()=>{
         switch(props.type){
-            case 'danger':  setColor('#dc3545');
+            case 'danger':  //setColor('#dc3545');
+                            setColor('#dc143c');
                             break;
             case 'warning': setColor('#ffc107');
                             break;
-            default:        setColor('#28a745');
+            default:        //setColor('#28a745');
+                            setColor('#0007ff');
                             break;
         }
     },[props.type]);

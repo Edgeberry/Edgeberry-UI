@@ -58,7 +58,7 @@ const Connectivity = ()=>{
     return(
         <Container>
             <div className="float-right">
-                <Button variant={'danger'} onClick={()=>{setShow(true)}} className="mb-2"><FontAwesomeIcon icon={faEnvelope}/> Message</Button>
+                <Button variant={'primary'} onClick={()=>{setShow(true)}} className="mb-2"><FontAwesomeIcon icon={faEnvelope}/> Message</Button>
             </div>
             <h1>Connectivity</h1>
             <StatusIndicator message={statusMessage} type={statusType}/>

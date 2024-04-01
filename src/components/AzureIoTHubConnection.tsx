@@ -95,7 +95,7 @@ const AzureIoTHubConnection = ( props:{authenticationType:string, setAuthenticat
         <>
             <Form>
                 <div className="float-right">
-                    <Button variant={'danger'} onClick={()=>{connect()}} className="mb-2"><FontAwesomeIcon icon={faRetweet}/> Reconnect</Button>
+                    <Button variant={'primary'} onClick={()=>{connect()}} className="mb-2" ><FontAwesomeIcon icon={faRetweet}/> Reconnect</Button>
                 </div>
                 <h3>Azure IoT Hub Connection</h3>
                 <br/>

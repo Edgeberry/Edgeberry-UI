@@ -1,3 +1,15 @@
+
+:root{
+  --edge_black: #1e1e1e;
+  --edge_blue: #0007ff;
+  --edge_darker_blue:#004080;
+  --edge_lighter_blue: #66B3FF;
+  --edge_gray: #808080;
+  --edge_silver: #c0c0c0;
+  --edge_red: #dc143c;
+  --edge_green: #00ff00;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -16,3 +28,28 @@ code {
 .float-right{
   float: right;
 }
+
+/* Primary button */
+.btn{
+  min-width: 140px;
+}
+
+.btn-primary, .btn-primary:active, .btn-primary:visited {
+  background-color: var(--edge_blue);
+  border-color: var(--edge_lighter_blue);
+  box-shadow: 0 0px 0px var(--edge_blue) inset, 0,0,0px var(--edge_lighter_blue);
+}
+
+.btn-primary:hover {
+  background-color: var(--edge_darker_blue);
+  border-color: var(--edge_blue);
+  box-shadow: 0 0px 0px var(--edge_darker_blue) inset, 0,0,3px var(--edge_blue);
+
+}
+
+/* Danger button */
+.btn-danger, .btn-danger:active, .btn-danger:visited {
+  background-color: var(--edge_red);
+}
+
+

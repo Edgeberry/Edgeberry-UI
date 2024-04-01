@@ -145,7 +145,7 @@ const System = ()=>{
             <Form.Group as={Row} className="mb-2">
                 <Form.Label column sm={2}>CPU usage</Form.Label>
                 <Col sm={6}>
-                    <Form.Control type={'text'} placeholder={'cpuUsage'} value={cpuUsage} disabled/>
+                    <Form.Control type={'text'} placeholder={'CPU usage'} value={cpuUsage} disabled/>
                 </Col>
             </Form.Group>
             <Form.Group as={Row} className="mb-2">
