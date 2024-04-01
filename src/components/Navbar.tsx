@@ -71,8 +71,8 @@ const NavigationBar = ()=>{
         <Navbar sticky="top" bg={'dark'} data-bs-theme={'dark'}>
             <Container>
                 <Navbar.Brand href='/'>
-                    <img src="logo_inverted.png" alt="Edge Gateway" height={'30px'}/>&nbsp;
-                    Edge Gateway
+                    <img src="logo_text.png" alt="Edge Gateway" height={'32px'}/>&nbsp;
+                    {/*Edge Gateway*/}
                 </Navbar.Brand>
                 <Nav>
                     <Nav.Link href='/application'>
