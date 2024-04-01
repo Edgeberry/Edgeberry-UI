@@ -50,6 +50,7 @@ const Application = ()=>{
             setMessage(result.message);
         }
         setDisabled(false);
+        setTimeout(getApplicationInfo,500);
         return;
     }
 
@@ -69,6 +70,7 @@ const Application = ()=>{
             setMessage(result.message);
         }
         setDisabled(false);
+        setTimeout(getApplicationInfo,500);
         return;
     }
     // Get the system application info
