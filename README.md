@@ -1,4 +1,4 @@
-![Edge Gateway](Edge_Gateway_banner.png)
+![Edge Gateway](brand/Edge_Gateway_banner.png)
 
 # Edge Gateway UI
 The user interface for the [Edge Gateway](https://github.com/SpuQ/Edge_Gateway).
