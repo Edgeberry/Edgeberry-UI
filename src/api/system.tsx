@@ -14,8 +14,8 @@ export async function api_system_getNetworkSettings(){
     try{
         const content = await response.json();
         return content;
-    } catch(err){
-        return {message:err};
+    } catch(err:any){
+        return {message:err.toString()};
     }
 }
 
@@ -31,8 +31,8 @@ export async function api_system_getApplicationInfo(){
     try{
         const content = await response.json();
         return content;
-    } catch(err){
-        return {message:err};
+    } catch(err:any){
+        return {message:err.toString()};
     }
 }
 
@@ -47,8 +47,8 @@ export async function api_system_updateSystemSoftware(){
         let content = await response.json();
         content.ok = response.ok;
         return content;
-    } catch(err){
-        return {message:err};
+    } catch(err:any){
+        return {message:err.toString()};
     }
 }
 
@@ -63,7 +63,23 @@ export async function api_system_reboot(){
         let content = await response.json();
         content.ok = response.ok;
         return content;
-    } catch(err){
-        return {message:err};
+    } catch(err:any){
+        return {message:err.toString()};
+    }
+}
+
+/* Identify the system */
+export async function api_system_identify(){
+    const response = await fetch( window.location.origin+'/api/system/identify',{
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        credentials: 'include'
+    });
+    try{
+        let content = await response.json();
+        content.ok = response.ok;
+        return content;
+    } catch(err:any){
+        return {message:err.toString()};
     }
 }

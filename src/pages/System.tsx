@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { api_system_getApplicationInfo, api_system_getNetworkSettings, api_system_reboot, api_system_updateSystemSoftware } from "../api/system";
+import { api_system_getApplicationInfo, api_system_getNetworkSettings, api_system_identify, api_system_reboot, api_system_updateSystemSoftware } from "../api/system";
 import NotificationBox from "../components/Notification";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import StatusIndicator from "../components/StatusIndicator";
+import { faSmileBeam } from "@fortawesome/free-regular-svg-icons";
 
 const System = ()=>{
     const[ disabled, setDisabled ] = useState<boolean>(false);
@@ -81,6 +82,21 @@ const System = ()=>{
         return;
     }
 
+        // Request system identification
+    async function requestSystemIdentifycation(){
+    
+        const result = await api_system_identify();
+        if( !result.ok ){
+            setIsError(true);
+            setMessage(result.message);
+        }
+        else{
+            setIsError(false);
+            setMessage(result.message);
+        }
+        return;
+    }
+
     // Request system restart
     async function requestSystemSoftwareUpdate(){
         // Check if user is sure about this action
@@ -104,7 +120,7 @@ const System = ()=>{
         <Container>
             <div className="float-right">
                 <Button variant={'danger'} className="mb-2" onClick={()=>{requestSystemRestart()}} disabled={disabled}><FontAwesomeIcon icon={faPowerOff}/> Restart</Button>&nbsp;
-                {/*<Button variant={'primary'} className="mb-2"  disabled={disabled}><FontAwesomeIcon icon={faSmileBeam}/> Identify</Button>*/}
+                <Button variant={'primary'} className="mb-2" onClick={()=>{requestSystemIdentifycation()}} disabled={disabled}><FontAwesomeIcon icon={faSmileBeam}/> Identify</Button>
             </div>
 
             <h1>System</h1>
