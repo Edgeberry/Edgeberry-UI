@@ -4,7 +4,7 @@
 
 /* Network */
 
-/* Get Azure Device Provisioning Service for IoT Hub parameters */
+/* Get network settings */
 export async function api_system_getNetworkSettings(){
     const response = await fetch( window.location.origin+'/api/system/network/settings',{
         method: 'GET',
@@ -78,6 +78,21 @@ export async function api_system_identify(){
     try{
         let content = await response.json();
         content.ok = response.ok;
+        return content;
+    } catch(err:any){
+        return {message:err.toString()};
+    }
+}
+
+/*  Get the device state */
+export async function api_system_getState(){
+    const response = await fetch( window.location.origin+'/api/system/state',{
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'},
+        credentials: 'include'
+    });
+    try{
+        const content = await response.json();
         return content;
     } catch(err:any){
         return {message:err.toString()};

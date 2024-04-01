@@ -2,7 +2,7 @@ import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 
-const StatusIndicator = ( props:{ message:string, type?:string })=>{
+const StatusIndicator = ( props:{ message:string, type?:string, noText?:boolean})=>{
     const[ color, setColor ] = useState<string>('#28a745');
 
     useEffect(()=>{
@@ -18,7 +18,7 @@ const StatusIndicator = ( props:{ message:string, type?:string })=>{
 
     return(<>
             {props.message?
-                <p style={{fontWeight:'bold', color:`${color}`}}><FontAwesomeIcon icon={faCircle}/> {props.message}</p>
+                <span style={{fontWeight:'bold', color:`${color}`}}><FontAwesomeIcon icon={faCircle}/> {props.noText?'':props.message}</span>
             :<></>}
         </>);
 }
