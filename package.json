@@ -1,8 +1,9 @@
 {
   "name": "edge-gateway-ui",
-  "version": "2.2.0",
-  "private": true,
+  "version": "2.2.1",
+  "private": false,
   "proxy": "http://localhost:8080",
+  "license":"MIT",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-regular-svg-icons": "^6.5.1",

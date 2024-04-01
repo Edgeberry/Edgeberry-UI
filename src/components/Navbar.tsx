@@ -38,10 +38,8 @@ const NavigationBar = ()=>{
             default:            setSysState('danger');
                                 break;
         }
-        
 
         // Determine the connection state
-        
         if( result.connection.provisioned){
             // If the device is provisioned,
             // we check the connection status.
