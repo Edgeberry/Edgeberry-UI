@@ -21,7 +21,7 @@ const NavigationBar = ()=>{
 
         // Determine the Application state
         switch( result.application.connection ){
-            case 'connected':     setAppState('success');
+            case 'connected':   setAppState('success');
                                 break;
             case 'started':     setAppState('success');
                                 break;
@@ -40,7 +40,7 @@ const NavigationBar = ()=>{
         }
 
         // Determine the connection state
-        if( result.connection.provisioned){
+        if( result.connection.provision === 'disabled' || result.connection.provision === 'provisioned' ){
             // If the device is provisioned,
             // we check the connection status.
             switch( result.connection.connection ){

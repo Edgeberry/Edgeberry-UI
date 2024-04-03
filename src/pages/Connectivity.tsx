@@ -32,7 +32,7 @@ const Connectivity = ()=>{
     }
 
     function determineStatus( status:any ){
-        if( status?.provisioned){
+        if( typeof(status?.provisioned) === 'undefined' || (typeof(status?.provisioned) === 'boolean' && status.provisioned === true )){
             // If the device is provisioned,
             // we check the connection status.
             if(status?.connected){
