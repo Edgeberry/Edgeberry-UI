@@ -6,8 +6,11 @@ import { api_connectivity_azure_getStatus } from "../api/connectivity";
 import StatusIndicator from "../components/StatusIndicator";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import AWS from "../components/AWS";
 
 const Connectivity = ()=>{
+    const[ platform, setPlatform ] = useState<string>('aws');
+
     const[show, setShow] = useState<boolean>(false);
 
     // Connection/provisioning status
@@ -65,15 +68,16 @@ const Connectivity = ()=>{
             <br/>
             <SendMessageModal show={show} onClose={()=>{setShow(false)}}/>
             <Form.Group as={Row} className="mb-2">
-                    <Form.Label column sm={2}>Platform</Form.Label>
-                    <Col sm={6}>
-                        <Form.Control as="select">
-                            <option value="azure" selected>Microsoft Azure IoT</option>
-                            <option value="aws" disabled>Amazon AWS IoT Core</option>
-                        </Form.Control>
-                    </Col>
-                </Form.Group>
-            <Azure />
+                <Form.Label column sm={2}>Platform</Form.Label>
+                <Col sm={6}>
+                    <Form.Control as="select" value={platform} onChange={(e)=>{setPlatform(e.target.value)}}>
+                        <option value="azure">Microsoft Azure IoT</option>
+                        <option value="aws" selected>Amazon AWS IoT Core</option>
+                    </Form.Control>
+                </Col>
+            </Form.Group>
+            {platform === 'azure'?<Azure />:<></>}
+            {platform === 'aws'?<AWS />:<></>}
         </Container>
     );
 }
