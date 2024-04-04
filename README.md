@@ -1,7 +1,7 @@
-![Edge Gateway](brand/Edge_Gateway_banner.png)
+![EdgeBerry](brand/EdgeBerry_banner.png)
 
-# Edge Gateway UI
-The user interface for the [Edge Gateway](https://github.com/SpuQ/Edge_Gateway).
+
+The user interface for the [EdgeBerry](https://github.com/SpuQ/EdgeBerry) application.
 
 ## License & Collaboration
 Copyright 2024 Sanne 'SpuQ' Santens. This project is licensed under the MIT License - see the [LICENSE](LICENSE.txt) file for details.

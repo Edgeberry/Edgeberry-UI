@@ -36,7 +36,7 @@ const SendMessageModal = ( props:{ show:boolean, onClose:Function })=>{
             return (({id, ...o})=>o)(property);
         });
 
-        const result = await api_connectivity_azure_sendMessage( message, properties );
+        const result = await api_connectivity_azure_sendMessage( body, properties );
         if( !result.ok ){
             setDisabled(false);
             setIsError(true);

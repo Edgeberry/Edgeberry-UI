@@ -1,6 +1,6 @@
 {
-  "name": "edge-gateway-ui",
-  "version": "2.2.1",
+  "name": "edgeberry-ui",
+  "version": "2.3.0",
   "private": false,
   "proxy": "http://localhost:8080",
   "license":"MIT",

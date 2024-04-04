@@ -3,7 +3,7 @@ import { Alert, Container } from "react-bootstrap";
 const Home = ()=>{
     return(
         <Container>
-            <h1>Edge Gateway</h1>
+            <h1>EdgeBerry</h1>
             <Alert>
                 Some usefull first-sight info
             </Alert>

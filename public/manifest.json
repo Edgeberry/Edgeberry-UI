@@ -1,6 +1,6 @@
 {
-  "short_name": "Edge Gateway",
-  "name": "IoT Edge Gateway Device",
+  "short_name": "EdgeBerry",
+  "name": "EdgeBerry",
   "icons": [
     {
       "src": "logo.png",
