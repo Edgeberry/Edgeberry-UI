@@ -2,7 +2,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import Azure from "../components/Azure";
 import SendMessageModal from "../components/SendMessageModal";
 import { useEffect, useState } from "react";
-import { api_connectivity_azure_getStatus } from "../api/connectivity";
+import { api_connectivity_getStatus } from "../api/connectivity";
 import StatusIndicator from "../components/StatusIndicator";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
@@ -23,7 +23,7 @@ const Connectivity = ()=>{
     },[]);
 
     async function getStatus(){
-        const result = await api_connectivity_azure_getStatus();
+        const result = await api_connectivity_getStatus();
         if(result.message){
             return;
         }

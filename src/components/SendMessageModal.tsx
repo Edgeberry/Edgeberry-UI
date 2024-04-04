@@ -3,7 +3,7 @@ import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import NotificationBox from "./Notification";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { api_connectivity_azure_sendMessage } from "../api/connectivity";
+import { api_connectivity_sendMessage } from "../api/connectivity";
 
 const SendMessageModal = ( props:{ show:boolean, onClose:Function })=>{
     // Message body
@@ -36,7 +36,7 @@ const SendMessageModal = ( props:{ show:boolean, onClose:Function })=>{
             return (({id, ...o})=>o)(property);
         });
 
-        const result = await api_connectivity_azure_sendMessage( body, properties );
+        const result = await api_connectivity_sendMessage( body, properties );
         if( !result.ok ){
             setDisabled(false);
             setIsError(true);

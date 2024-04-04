@@ -3,8 +3,8 @@
  */
 
 /* Get Azure client status */
-export async function api_connectivity_azure_getStatus(){
-    const response = await fetch( window.location.origin+'/api/connectivity/azure/status',{
+export async function api_connectivity_getStatus(){
+    const response = await fetch( window.location.origin+'/api/connectivity/status',{
         method: 'GET',
         headers: {'Content-Type': 'application/json'},
         credentials: 'include'
@@ -18,8 +18,8 @@ export async function api_connectivity_azure_getStatus(){
 }
 
 /* Get Azure IoT Hub connection parameters */
-export async function api_connectivity_azure_getConnectionParameters(){
-    const response = await fetch( window.location.origin+'/api/connectivity/azure/connectionparameters',{
+export async function api_connectivity_getConnectionParameters(){
+    const response = await fetch( window.location.origin+'/api/connectivity/connectionparameters',{
         method: 'GET',
         headers: {'Content-Type': 'application/json'},
         credentials: 'include'
@@ -33,8 +33,8 @@ export async function api_connectivity_azure_getConnectionParameters(){
 }
 
 /* Update Azure IoT Hub connection parameters */
-export async function api_connectivity_azure_updateConnectionParameters( parameters:any ){
-    const response = await fetch( window.location.origin+'/api/connectivity/azure/connectionparameters',{
+export async function api_connectivity_updateConnectionParameters( parameters:any ){
+    const response = await fetch( window.location.origin+'/api/connectivity/connectionparameters',{
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         credentials: 'include',
@@ -46,8 +46,8 @@ export async function api_connectivity_azure_updateConnectionParameters( paramet
 }
 
 /* (Re)connect to Azure IoT Hub */
-export async function api_connectivity_azure_connect(){
-    const response = await fetch( window.location.origin+'/api/connectivity/azure/connect',{
+export async function api_connectivity_connect(){
+    const response = await fetch( window.location.origin+'/api/connectivity/connect',{
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         credentials: 'include',
@@ -59,8 +59,8 @@ export async function api_connectivity_azure_connect(){
 }
 
 /* Get Azure Device Provisioning Service for IoT Hub parameters */
-export async function api_connectivity_azure_getProvisioningParameters(){
-    const response = await fetch( window.location.origin+'/api/connectivity/azure/provisioningparameters',{
+export async function api_connectivity_getProvisioningParameters(){
+    const response = await fetch( window.location.origin+'/api/connectivity/provisioningparameters',{
         method: 'GET',
         headers: {'Content-Type': 'application/json'},
         credentials: 'include'
@@ -76,9 +76,9 @@ export async function api_connectivity_azure_getProvisioningParameters(){
 
 
 /* Update Azure Device Provisioning Service for IoT Hub parameters */
-export async function api_connectivity_azure_updateProvisioningParameters( parameters:any ){
+export async function api_connectivity_updateProvisioningParameters( parameters:any ){
     console.log(parameters);
-    const response = await fetch( window.location.origin+'/api/connectivity/azure/provisioningparameters',{
+    const response = await fetch( window.location.origin+'/api/connectivity/provisioningparameters',{
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         credentials: 'include',
@@ -90,8 +90,8 @@ export async function api_connectivity_azure_updateProvisioningParameters( param
 }
 
 /* (Re)provision from Azure Device Provisioning Service for IoT Hub */
-export async function api_connectivity_azure_provision(){
-    const response = await fetch( window.location.origin+'/api/connectivity/azure/provision',{
+export async function api_connectivity_provision(){
+    const response = await fetch( window.location.origin+'/api/connectivity/provision',{
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         credentials: 'include',
@@ -103,8 +103,8 @@ export async function api_connectivity_azure_provision(){
 }
 
 /* Send Message to Azure IoT Hub */
-export async function api_connectivity_azure_sendMessage( message:string, properties:any[]){
-    const response = await fetch( window.location.origin+'/api/connectivity/azure/sendmessage',{
+export async function api_connectivity_sendMessage( message:string, properties:any[]){
+    const response = await fetch( window.location.origin+'/api/connectivity/sendmessage',{
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         credentials: 'include',

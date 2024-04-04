@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #   deploy.sh
-#   Deploy the Edge Gateway UI to a device on your
+#   Deploy the EdgeBerry UI to a device on your
 #   local network using sshpass.
 
 DEFAULT_USER=spuq
@@ -53,7 +53,7 @@ sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no ${USER}@${HOST} << EOF
 sudo su
 
 echo -e '\e[0;32mInstalling project in public folder... \e[m'
-cp -r ./temp_ui/* /opt/Edge_Gateway/build/public
+cp -r ./temp_ui/* /opt/EdgeBerry/build/public
 echo -e '\e[0;32mCleaning up... \e[m'
 rm -rf ./temp_ui
 

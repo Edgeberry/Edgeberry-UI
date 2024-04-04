@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { api_connectivity_azure_connect, api_connectivity_azure_getConnectionParameters, api_connectivity_azure_updateConnectionParameters } from "../api/connectivity";
+import { api_connectivity_connect, api_connectivity_getConnectionParameters, api_connectivity_updateConnectionParameters } from "../api/connectivity";
 import NotificationBox from "./Notification";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRetweet } from "@fortawesome/free-solid-svg-icons";
@@ -39,7 +39,7 @@ const AzureIoTHubConnection = ( props:{authenticationType:string, setAuthenticat
 
     // Get Azure IoT Hub connection parameters
     async function getConnectionParameters(){
-        const result = await api_connectivity_azure_getConnectionParameters();
+        const result = await api_connectivity_getConnectionParameters();
         if( result.message ){
             setIsError(true);
             setMessage(result.message);
@@ -65,7 +65,7 @@ const AzureIoTHubConnection = ( props:{authenticationType:string, setAuthenticat
             certificate: cert,
             privateKey: pKey,
         }
-        const result = await api_connectivity_azure_updateConnectionParameters( parameters );
+        const result = await api_connectivity_updateConnectionParameters( parameters );
         setIsError(false);
         setMessage(result.message);
     }
@@ -79,7 +79,7 @@ const AzureIoTHubConnection = ( props:{authenticationType:string, setAuthenticat
         setMessage('Reconnecting to Azure IoT Hub...');
 
         // Reconnect to Azure IoT Hub
-        const result = await api_connectivity_azure_connect();
+        const result = await api_connectivity_connect();
         if( !result.ok ){
             setIsError(true);
             setMessage(result.message);

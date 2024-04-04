@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { api_connectivity_azure_getProvisioningParameters, api_connectivity_azure_provision, api_connectivity_azure_updateProvisioningParameters } from "../api/connectivity";
+import { api_connectivity_getProvisioningParameters, api_connectivity_provision, api_connectivity_updateProvisioningParameters } from "../api/connectivity";
 import NotificationBox from "./Notification";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRetweet } from "@fortawesome/free-solid-svg-icons";
@@ -41,7 +41,7 @@ const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAu
 
     // Get Azure Provisioning parameters
     async function getProvisioningParameters(){
-        const result = await api_connectivity_azure_getProvisioningParameters();
+        const result = await api_connectivity_getProvisioningParameters();
         console.log(result);
         if( result.message ){
             setIsError(true);
@@ -75,7 +75,7 @@ const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAu
             certificate: cert,
             privateKey: pkey,
         }
-        const result = await api_connectivity_azure_updateProvisioningParameters( parameters );
+        const result = await api_connectivity_updateProvisioningParameters( parameters );
         if( result.message ){
             setIsError(false);
             setMessage(result.message);
@@ -93,7 +93,7 @@ const AzureDeviceProvisioningService = ( props:{authenticationType:string, setAu
         setDisabled(true);
 
         // Request reprovisioning
-        const result = await api_connectivity_azure_provision();
+        const result = await api_connectivity_provision();
         if( !result.ok ){
             setIsError(true);
             setMessage(result.message);
