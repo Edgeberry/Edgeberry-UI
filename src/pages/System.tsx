@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { api_system_getApplicationInfo, api_system_getNetworkSettings, api_system_identify, api_system_reboot, api_system_updateSystemSoftware } from "../api/system";
+import { api_system_getApplicationInfo, api_system_getNetworkSettings, api_system_getSystemInfo, api_system_identify, api_system_reboot, api_system_updateSystemSoftware } from "../api/system";
 import NotificationBox from "../components/Notification";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
@@ -12,6 +12,9 @@ const System = ()=>{
     // Error or success messages
     const[ message, setMessage ] = useState<string>('');
     const[ isError, setIsError ] = useState<boolean>(false);
+
+    // System
+    const[ hwPlatform, setHwPlatform ] = useState<string>('');
 
     // Network
     const[ ssid, setSsid ] = useState<string>('');
@@ -26,6 +29,7 @@ const System = ()=>{
     useEffect(()=>{
         getNetworkSettings();
         getSystemApplicationInfo();
+        getSystemInfo();
     },[]);
 
     // Disappearing messages
@@ -48,6 +52,17 @@ const System = ()=>{
         if( typeof(result.ipAddress ) === 'string' ) setIpAddress(result.ipAddress);
         return;
     }
+
+        // Get System Info
+        async function getSystemInfo(){
+            const result = await api_system_getSystemInfo();
+            if( result.message ){
+                setIsError(true);
+                setMessage(result.message);
+            }
+            if( typeof(result.platform) === 'string' ) setHwPlatform(result.platform);
+            return;
+        }
 
     // Get the system application info
     async function getSystemApplicationInfo(){
@@ -84,7 +99,6 @@ const System = ()=>{
 
         // Request system identification
     async function requestSystemIdentifycation(){
-    
         const result = await api_system_identify();
         if( !result.ok ){
             setIsError(true);
@@ -124,6 +138,14 @@ const System = ()=>{
             </div>
 
             <h1>System</h1>
+            <br/>
+            <Form.Group as={Row} className="mb-2">
+                <Form.Label column sm={2}>Hardware platform</Form.Label>
+                <Col sm={6}>
+                    <Form.Control type={'text'} placeholder={'Hardware Platform'} value={hwPlatform} disabled/>
+                </Col>
+            </Form.Group>
+
             <br/>
             <h2>Network</h2>
             <Form.Group as={Row} className="mb-2">

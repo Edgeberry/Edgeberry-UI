@@ -52,6 +52,22 @@ export async function api_system_updateSystemSoftware(){
     }
 }
 
+
+/* Get system info */
+export async function api_system_getSystemInfo(){
+    const response = await fetch( window.location.origin+'/api/system/info',{
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'},
+        credentials: 'include'
+    });
+    try{
+        const content = await response.json();
+        return content;
+    } catch(err:any){
+        return {message:err.toString()};
+    }
+}
+
 /* Reboot the system */
 export async function api_system_reboot(){
     const response = await fetch( window.location.origin+'/api/system/reboot',{
