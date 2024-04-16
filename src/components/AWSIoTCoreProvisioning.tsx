@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { api_connectivity_connect, api_connectivity_getConnectionParameters, api_connectivity_updateConnectionParameters } from "../api/connectivity";
+import { api_connectivity_connect, api_connectivity_getConnectionParameters, api_connectivity_getProvisioningParameters, api_connectivity_provision, api_connectivity_updateConnectionParameters, api_connectivity_updateProvisioningParameters } from "../api/connectivity";
 import NotificationBox from "./Notification";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRetweet } from "@fortawesome/free-solid-svg-icons";
 import CertificateControl from "./CertificateControl";
 
-const AWSIoTCoreConnection = ( props:{authenticationType:string, setAuthenticationType?:Function, disabled?:boolean } )=>{
+const AWSIoTCoreProvisioning = ( props:{authenticationType:string, setAuthenticationType?:Function, disabled?:boolean } )=>{
     const[ disabled, setDisabled ] = useState<boolean>(false);
     // Error or success messages
     const[ message, setMessage ] = useState<string>('');
@@ -26,7 +26,7 @@ const AWSIoTCoreConnection = ( props:{authenticationType:string, setAuthenticati
     },[props.disabled]);
 
     useEffect(()=>{
-        getConnectionParameters();
+        getProvisioningParameters();
     },[]);
 
     // Disappearing messages
@@ -39,15 +39,15 @@ const AWSIoTCoreConnection = ( props:{authenticationType:string, setAuthenticati
     },[message]);
 
     // Get Azure IoT Hub connection parameters
-    async function getConnectionParameters(){
-        const result = await api_connectivity_getConnectionParameters();
+    async function getProvisioningParameters(){
+        const result = await api_connectivity_getProvisioningParameters();
         if( result.message ){
             setIsError(true);
             setMessage(result.message);
         }
         // Set the parameters in the fields
         if( typeof(result.hostName) === 'string' ) setHostname(result.hostName);
-        if( typeof(result.deviceId) === 'string' ) setDeviceId(result.deviceId);
+        if( typeof(result.clientId) === 'string' ) setDeviceId(result.clientId);
         if( typeof(result.sharedAccessKey) === 'string' ) setSharedKey(result.sharedAccessKey);
         if( typeof(result.certificate) === 'string' ) setCert(result.certificate);
         if( typeof(result.privateKey) === 'string' ) setPKey(result.privateKey);
@@ -58,31 +58,31 @@ const AWSIoTCoreConnection = ( props:{authenticationType:string, setAuthenticati
     }
 
     // Update Azure connection parameters
-    async function updateConnectionParameters(){
+    async function updateProvisioningParameters(){
         const parameters = {
             hostName: hostname,
-            deviceId: deviceId,
+            clientId: deviceId,
             authenticationType: props.authenticationType,
             sharedAccessKey: sharedKey,
             certificate: cert,
             privateKey: pKey,
             rootCertificate: rootca
         }
-        const result = await api_connectivity_updateConnectionParameters( parameters );
+        const result = await api_connectivity_updateProvisioningParameters( parameters );
         setIsError(false);
         setMessage(result.message);
     }
 
-    // (Re)connect the device
-    async function connect(){
-        // Update connection parameters
-        await updateConnectionParameters();
+    // (Re)provision the device
+    async function provision(){
+        // Update provisioning parameters
+        await updateProvisioningParameters();
 
         setIsError(false);
-        setMessage('Reconnecting...');
+        setMessage('Reprovisioning...');
 
-        // Reconnect to Azure IoT Hub
-        const result = await api_connectivity_connect();
+        // Reprovision device
+        const result = await api_connectivity_provision();
         if( !result.ok ){
             setIsError(true);
             setMessage(result.message);
@@ -98,9 +98,9 @@ const AWSIoTCoreConnection = ( props:{authenticationType:string, setAuthenticati
         <>
             <Form>
                 <div className="float-right">
-                    <Button variant={'primary'} onClick={()=>{connect()}} className="mb-2" ><FontAwesomeIcon icon={faRetweet}/> Reconnect</Button>
+                    <Button variant={'primary'} onClick={()=>{provision()}} className="mb-2" ><FontAwesomeIcon icon={faRetweet}/> Reprovision</Button>
                 </div>
-                <h3>AWS IoT Core Connection</h3>
+                <h3>AWS IoT Core Provisioning</h3>
                 <br/>
                 <Form.Group as={Row} className="mb-2">
                     <Form.Label column sm={2}>Hostname</Form.Label>
@@ -109,7 +109,7 @@ const AWSIoTCoreConnection = ( props:{authenticationType:string, setAuthenticati
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} className="mb-2">
-                    <Form.Label column sm={2}>Device ID</Form.Label>
+                    <Form.Label column sm={2}>Client ID</Form.Label>
                     <Col sm={6}>
                         <Form.Control type={'text'} placeholder={'Device ID'} value={deviceId} onChange={(e)=>{setDeviceId(e.target.value)}} required disabled={disabled}/>
                     </Col>
@@ -138,4 +138,4 @@ const AWSIoTCoreConnection = ( props:{authenticationType:string, setAuthenticati
     );
 }
 
-export default AWSIoTCoreConnection;
+export default AWSIoTCoreProvisioning;

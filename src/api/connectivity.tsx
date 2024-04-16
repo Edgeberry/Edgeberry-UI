@@ -2,7 +2,7 @@
  *  Connectivity API
  */
 
-/* Get Azure client status */
+/* Get cloud client status */
 export async function api_connectivity_getStatus(){
     const response = await fetch( window.location.origin+'/api/connectivity/status',{
         method: 'GET',
@@ -17,7 +17,7 @@ export async function api_connectivity_getStatus(){
     }
 }
 
-/* Get Azure IoT Hub connection parameters */
+/* Get cloud connection parameters */
 export async function api_connectivity_getConnectionParameters(){
     const response = await fetch( window.location.origin+'/api/connectivity/connectionparameters',{
         method: 'GET',
@@ -32,7 +32,7 @@ export async function api_connectivity_getConnectionParameters(){
     }
 }
 
-/* Update Azure IoT Hub connection parameters */
+/* Update cloud connection parameters */
 export async function api_connectivity_updateConnectionParameters( parameters:any ){
     const response = await fetch( window.location.origin+'/api/connectivity/connectionparameters',{
         method: 'POST',
@@ -45,7 +45,7 @@ export async function api_connectivity_updateConnectionParameters( parameters:an
     return content;
 }
 
-/* (Re)connect to Azure IoT Hub */
+/* (Re)connect to the cloud */
 export async function api_connectivity_connect(){
     const response = await fetch( window.location.origin+'/api/connectivity/connect',{
         method: 'POST',

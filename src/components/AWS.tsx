@@ -1,6 +1,7 @@
 import { Col, Form, Row} from "react-bootstrap";
 import { useState } from "react";
 import AWSIoTCoreConnection from "./AWSIoTCoreConnection";
+import AWSIoTCoreProvisioning from "./AWSIoTCoreProvisioning";
 
 const AWS = ()=>{
     const[ useProvisioning, setUseProvisioning ] = useState<boolean>(false);
@@ -27,6 +28,7 @@ const AWS = ()=>{
                 <hr/>
                 <AWSIoTCoreConnection authenticationType={authenticationType} setAuthenticationType={setAuthenticationType} disabled={useProvisioning}/>
                 <hr/>
+                <AWSIoTCoreProvisioning authenticationType={authenticationType} setAuthenticationType={setAuthenticationType} disabled={!useProvisioning}/>
 
             </Form>
         </>
