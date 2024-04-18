@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { api_system_getState } from "../api/system";
 import StatusIndicator from "./StatusIndicator";
+import logo from "../EdgeBerry_Logo_text.svg";
 
 const NavigationBar = ()=>{
     const[ appState, setAppState ] = useState<string>('');
@@ -71,7 +72,7 @@ const NavigationBar = ()=>{
         <Navbar sticky="top" bg={'dark'} data-bs-theme={'dark'}>
             <Container>
                 <Navbar.Brand href='/'>
-                    <img src="logo_text.png" alt="Edge Gateway" height={'32px'}/>&nbsp;
+                    <img src={logo} alt="Edge Gateway" height={'32px'}/>&nbsp;
                     {/*Edge Gateway*/}
                 </Navbar.Brand>
                 <Nav>
