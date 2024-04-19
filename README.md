@@ -1,4 +1,4 @@
-![EdgeBerry](brand/EdgeBerry_banner.png)
+![EdgeBerry](assets/EdgeBerry_banner.png)
 
 
 The user interface for the [EdgeBerry](https://github.com/SpuQ/EdgeBerry) application.
