@@ -15,6 +15,8 @@ const System = ()=>{
 
     // System
     const[ hwPlatform, setHwPlatform ] = useState<string>('');
+    const[ hwBoard, setHwBoard ] = useState<string>('');
+    const[ hwUuid, setHwUuid ] = useState<string>('');
 
     // Network
     const[ ssid, setSsid ] = useState<string>('');
@@ -61,6 +63,10 @@ const System = ()=>{
                 setMessage(result.message);
             }
             if( typeof(result.platform) === 'string' ) setHwPlatform(result.platform);
+
+            if( typeof(result.boardName) === 'string' && typeof(result.boardVersion) === 'string' )
+                setHwBoard(result.boardName+' Rev '+result.boardVersion);
+            if( typeof(result.uuid) === 'string' ) setHwUuid(result.uuid);
             return;
         }
 
@@ -139,14 +145,6 @@ const System = ()=>{
 
             <h1>System</h1>
             <br/>
-            <Form.Group as={Row} className="mb-2">
-                <Form.Label column sm={2}>Hardware platform</Form.Label>
-                <Col sm={6}>
-                    <Form.Control type={'text'} placeholder={'Hardware Platform'} value={hwPlatform} disabled/>
-                </Col>
-            </Form.Group>
-
-            <br/>
             <h2>Network</h2>
             <Form.Group as={Row} className="mb-2">
                 <Form.Label column sm={2}>SSID</Form.Label>
@@ -189,6 +187,27 @@ const System = ()=>{
                     <Button variant={'danger'} onClick={()=>{requestSystemSoftwareUpdate()}} disabled={disabled}>Update</Button>
                 </Col>
             </Form.Group>
+            <hr/>
+            <h2>Hardware</h2>
+            <Form.Group as={Row} className="mb-2">
+                <Form.Label column sm={2}>Computing Platform</Form.Label>
+                <Col sm={6}>
+                    <Form.Control type={'text'} placeholder={'Hardware Platform'} value={hwPlatform} disabled/>
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row} className="mb-2">
+                <Form.Label column sm={2}>Hardware Board</Form.Label>
+                <Col sm={6}>
+                    <Form.Control type={'text'} placeholder={'Hardware board'} value={hwBoard} disabled/>
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row} className="mb-2">
+                <Form.Label column sm={2}>Hardware UUID</Form.Label>
+                <Col sm={6}>
+                    <Form.Control type={'text'} placeholder={'Hardware UUID'} value={hwUuid} disabled/>
+                </Col>
+            </Form.Group>
+            <hr/>
         </Container>
     );
 }
