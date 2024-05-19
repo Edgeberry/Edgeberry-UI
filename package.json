@@ -3,7 +3,7 @@
   "version": "2.5.0",
   "private": false,
   "proxy": "http://localhost:8080",
-  "license":"MIT",
+  "license":"GPL-3.0-only",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-regular-svg-icons": "^6.5.1",
