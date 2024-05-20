@@ -1,7 +1,7 @@
-![EdgeBerry](assets/EdgeBerry_banner.png)
+![EdgeBerry](assets/Edgeberry_banner.png)
 
 
-The user interface for the [EdgeBerry](https://github.com/SpuQ/EdgeBerry) application.
+The user interface for the [Edgeberry](https://github.com/SpuQ/EdgeBerry) application.
 
 ## License & Collaboration
 **Copyright© 2024 Sanne 'SpuQ' Santens**. The Edgeberry device software is licensed under the **[GNU GPLv3](LICENSE.txt)**.
