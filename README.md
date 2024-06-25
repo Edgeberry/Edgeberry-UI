@@ -1,7 +1,6 @@
-![EdgeBerry](assets/Edgeberry_banner.png)
+![Edgeberry Banner](https://raw.githubusercontent.com/Edgeberry/.github/main/brand/EdgeBerry_banner_device_software.png)
 
-
-The user interface for the [Edgeberry](https://github.com/SpuQ/EdgeBerry) application.
+The user interface for the [Edgeberry Device Software](https://github.com/Edgeberry/Edgeberry).
 
 ## License & Collaboration
 **Copyright© 2024 Sanne 'SpuQ' Santens**. The Edgeberry device software is licensed under the **[GNU GPLv3](LICENSE.txt)**. The [Rules & Guidelines](https://github.com/Edgeberry/.github/blob/main/brand/Edgeberry_Trademark_Rules_and_Guidelines.md) apply to the usage of the Edgeberry™ brand.
